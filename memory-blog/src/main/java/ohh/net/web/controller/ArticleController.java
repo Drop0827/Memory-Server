@@ -1,0 +1,167 @@
+package ohh.net.web.controller;
+
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import ohh.net.common.annotation.NoTokenRequired;
+import ohh.net.common.annotation.RateLimit;
+import ohh.net.common.utils.Paging;
+import ohh.net.common.utils.Result;
+import ohh.net.dto.article.ArticleFormDTO;
+import ohh.net.model.Article;
+import ohh.net.vo.PageVo;
+import ohh.net.vo.article.ArticleFillterVo;
+import ohh.net.web.service.ArticleService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import jakarta.annotation.Resource;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+
+@Tag(name = "文章管理")
+@RestController
+@RequestMapping("/article")
+@Transactional
+public class ArticleController {
+    @Resource
+    private ArticleService articleService;
+
+    @PostMapping
+    @Operation(summary = "新增文章")
+    @ApiOperationSupport(author = "OHH | 2720751424@qq.com", order = 1)
+    public Result<String> add(@RequestBody ArticleFormDTO articledFormDTO) {
+        articleService.add(articledFormDTO);
+        return Result.success();
+    }
+
+    @DeleteMapping("/{id}/{is_del}")
+    @Operation(summary = "删除文章")
+    @ApiOperationSupport(author = "OHH | 2720751424@qq.com", order = 2)
+    public Result<String> del(@PathVariable Integer id, @PathVariable Integer is_del) {
+        articleService.del(id, is_del);
+        return Result.success();
+    }
+
+    @PatchMapping("/reduction/{id}")
+    @Operation(summary = "还原被删除的文章")
+    @ApiOperationSupport(author = "OHH | 2720751424@qq.com", order = 3)
+    public Result<String> reduction(@PathVariable Integer id) {
+        articleService.reduction(id);
+        return Result.success();
+    }
+
+    @DeleteMapping("/batch")
+    @Operation(summary = "批量删除文章")
+    @ApiOperationSupport(author = "OHH | 2720751424@qq.com", order = 4)
+    public Result batchDel(@RequestBody List<Integer> ids) {
+        articleService.delBatch(ids);
+        return Result.success();
+    }
+
+    @PatchMapping
+    @Operation(summary = "编辑文章")
+    @ApiOperationSupport(author = "OHH | 2720751424@qq.com", order = 5)
+    public Result<String> edit(@RequestBody ArticleFormDTO articleFormDTO) {
+        articleService.edit(articleFormDTO);
+        return Result.success();
+    }
+
+    @RateLimit
+    @GetMapping("/{id}")
+    @Operation(summary = "获取文章")
+    @ApiOperationSupport(author = "OHH | 2720751424@qq.com", order = 6)
+    public Result<Article> get(@PathVariable Integer id, @RequestParam(defaultValue = "") String password) {
+        password = !password.isEmpty() ? password : "";
+        Article data = articleService.get(id, password);
+        return Result.success(data);
+    }
+
+    @RateLimit
+    @NoTokenRequired
+    @PostMapping("/list")
+    @Operation(summary = "获取文章列表")
+    @ApiOperationSupport(author = "OHH | 2720751424@qq.com", order = 7)
+    public Result<List<Article>> list(@RequestBody ArticleFillterVo filterVo, @RequestHeader(value = "Authorization", required = false) String token) {
+        List<Article> data = articleService.list(filterVo, token);
+        return Result.success(data);
+    }
+
+    @RateLimit
+    @NoTokenRequired
+    @PostMapping("/paging")
+    @Operation(summary = "分页查询文章列表")
+    @ApiOperationSupport(author = "OHH | 2720751424@qq.com", order = 8)
+    public Result paging(@RequestBody ArticleFillterVo filterVo, PageVo pageVo, @RequestHeader(value = "Authorization", required = false) String token) {
+        Page<Article> list = articleService.paging(filterVo, pageVo, token);
+        Map<String, Object> result = Paging.filter(list);
+        return Result.success(result);
+    }
+
+    @RateLimit
+    @GetMapping("/cate/{cate_id}")
+    @Operation(summary = "获取指定分类的文章列表")
+    @ApiOperationSupport(author = "OHH | 2720751424@qq.com", order = 9)
+    public Result getCateArticleList(@PathVariable Integer cate_id, PageVo pageVo) {
+        Page<Article> list = articleService.getCateArticleList(cate_id, pageVo);
+        Map<String, Object> result = Paging.filter(list);
+        return Result.success(result);
+    }
+
+    @RateLimit
+    @GetMapping("/tag/{tag_id}")
+    @Operation(summary = "获取指定标签的文章列表")
+    @ApiOperationSupport(author = "OHH | 2720751424@qq.com", order = 10)
+    public Result getTagArticleList(@PathVariable Integer tag_id, PageVo pageVo) {
+        Page<Article> list = articleService.getTagArticleList(tag_id, pageVo);
+        Map<String, Object> result = Paging.filter(list);
+        return Result.success(result);
+    }
+
+    @RateLimit
+    @GetMapping("/hot")
+    @Operation(summary = "获取热门文章数据")
+    @ApiOperationSupport(author = "OHH | 2720751424@qq.com", order = 12)
+    public Result<List<Article>> getRecommendedArticles(@Parameter(description = "默认浏览量最高的5篇文章") @RequestParam(defaultValue = "5") Integer count) {
+        List<Article> data = articleService.getRecommendedArticles(count);
+        return Result.success(data);
+    }
+
+    @RateLimit
+    @GetMapping("/random")
+    @Operation(summary = "随机获取文章数据")
+    @ApiOperationSupport(author = "OHH | 2720751424@qq.com", order = 11)
+    public Result<List<Article>> getRandomArticles(@Parameter(description = "默认随机获取5篇文章") @RequestParam(defaultValue = "5") Integer count) {
+        List<Article> data = articleService.getRandomArticles(count);
+        return Result.success(data);
+    }
+
+    @RateLimit
+    @GetMapping("/view/{article_id}")
+    @Operation(summary = "递增文章浏览量")
+    @ApiOperationSupport(author = "OHH | 2720751424@qq.com", order = 13)
+    public Result<String> recordView(@PathVariable Integer article_id) {
+        articleService.recordView(article_id);
+        return Result.success();
+    }
+
+    @PostMapping("/import")
+    @Operation(summary = "批量导入文章")
+    @ApiOperationSupport(author = "OHH | 2720751424@qq.com", order = 14)
+    public Result<String> importArticle(@RequestParam MultipartFile[] list) throws IOException {
+        articleService.importArticle(list);
+        return Result.success();
+    }
+
+    @PostMapping("/export")
+    @Operation(summary = "批量导出文章")
+    @ApiOperationSupport(author = "OHH | 2720751424@qq.com", order = 15)
+    public ResponseEntity<byte[]> exportArticle(@RequestBody List<Integer> ids) {
+        return articleService.exportArticle(ids);
+    }
+}
