@@ -2,34 +2,34 @@ package ohh.net.model;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 @Data
 @TableName("wall")
 public class Wall extends BaseModel {
-    @ApiModelProperty(value = "留言人名称", example = "神秘人", required = true)
+    @Schema(description = "留言人名称", example = "神秘人", requiredMode = Schema.RequiredMode.REQUIRED)
     private String name;
 
-    @ApiModelProperty(value = "分类id", example = "1", required = true)
+    @Schema(description = "分类id", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer cateId;
 
     @TableField(exist = false)
-    @ApiModelProperty(value = "留言分类", example = "全部")
+    @Schema(description = "留言分类", example = "全部")
     private WallCate cate;
 
-    @ApiModelProperty(value = "留言墙颜色", example = "#92e6f54d")
+    @Schema(description = "留言墙颜色", example = "#92e6f54d")
     private String color;
 
-    @ApiModelProperty(value = "留言内容", example = "这是一段内容", required = true)
+    @Schema(description = "留言内容", example = "这是一段内容", requiredMode = Schema.RequiredMode.REQUIRED)
     private String content;
 
-    @ApiModelProperty(value = "邮箱", example = "3311118881@qq.com")
+    @Schema(description = "邮箱", example = "3311118881@qq.com")
     private String email;
 
-    @ApiModelProperty(value = "评论是否审核通过", example = "1")
+    @Schema(description = "评论是否审核通过", example = "1")
     private Integer auditStatus;
 
-    @ApiModelProperty(value = "设置与取消精选", example = "1")
+    @Schema(description = "设置与取消精选", example = "1")
     private Integer isChoice;
 }

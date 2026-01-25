@@ -1,6 +1,6 @@
 package ohh.net.vo.user;
 
-import liuyuyang.net.vo.FilterVo;
+import ohh.net.vo.FilterVo;
 import lombok.Data;
 
 @Data

@@ -1,16 +1,16 @@
 package ohh.net.dto.user;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 @Data
 public class EditPassDTO {
-    @ApiModelProperty(value = "旧账号", example = "admin", required = true)
+    @Schema(description = "旧账号", example = "admin", requiredMode = Schema.RequiredMode.REQUIRED)
     private String oldUsername;
-    @ApiModelProperty(value = "新账号", example = "thrivex666", required = true)
+    @Schema(description = "新账号", example = "thrivex666", requiredMode = Schema.RequiredMode.REQUIRED)
     private String newUsername;
-    @ApiModelProperty(value = "旧密码", required = true)
+    @Schema(description = "旧密码", requiredMode = Schema.RequiredMode.REQUIRED)
     private String oldPassword;
-    @ApiModelProperty(value = "新密码", required = true)
+    @Schema(description = "新密码", requiredMode = Schema.RequiredMode.REQUIRED)
     private String newPassword;
 }

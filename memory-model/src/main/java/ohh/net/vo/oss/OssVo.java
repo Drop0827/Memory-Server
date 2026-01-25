@@ -1,6 +1,6 @@
 package ohh.net.vo.oss;
 
-import liuyuyang.net.model.Oss;
+import ohh.net.model.Oss;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

@@ -4,44 +4,44 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 @Data
 @TableName("oss")
 public class Oss {
     @TableId(type = IdType.AUTO)
-    @ApiModelProperty(value = "ID")
+    @Schema(description = "ID")
     private Integer id;
 
-    @ApiModelProperty(value = "存储平台")
+    @Schema(description = "存储平台")
     private String platform;
 
-    @ApiModelProperty(value = "平台名称")
+    @Schema(description = "平台名称")
     @TableField(exist = false)
     private String platformName;
 
-    @ApiModelProperty(value = "Access Key")
+    @Schema(description = "Access Key")
     private String accessKey;
 
-    @ApiModelProperty(value = "Secret Key")
+    @Schema(description = "Secret Key")
     private String secretKey;
 
-    @ApiModelProperty(value = "地域")
+    @Schema(description = "地域")
     private String endPoint;
 
-    @ApiModelProperty(value = "存储桶")
+    @Schema(description = "存储桶")
     private String bucketName;
 
-    @ApiModelProperty(value = "域名")
+    @Schema(description = "域名")
     private String domain;
 
-    @ApiModelProperty(value = "文件目录")
+    @Schema(description = "文件目录")
     private String basePath;
 
     /**
      * 是否启用 0:禁用 1：启用
      */
-    @ApiModelProperty(value = "是否启用 0:禁用 1：启用")
+    @Schema(description = "是否启用 0:禁用 1：启用")
     private Integer isEnable;
 }

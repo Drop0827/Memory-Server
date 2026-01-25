@@ -2,7 +2,7 @@ package ohh.net.dto.comment;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 @Data
@@ -10,30 +10,30 @@ public class CommentFormDTO {
     @TableId(type = IdType.AUTO)
     private Integer id;
 
-    @ApiModelProperty(value = "评论者名称", example = "宇阳", required = true)
+    @Schema(description = "评论者名称", example = "宇阳", requiredMode = Schema.RequiredMode.REQUIRED)
     private String name;
 
-    @ApiModelProperty(value = "评论者头像", example = "yuyang.jpg")
+    @Schema(description = "评论者头像", example = "yuyang.jpg")
     private String avatar;
 
-    @ApiModelProperty(value = "评论者邮箱", example = "liuyuyang1024@yeah.net")
+    @Schema(description = "评论者邮箱", example = "liuyuyang1024@yeah.net")
     private String email;
 
-    @ApiModelProperty(value = "评论者网站", example = "https://blog.liuyuyang.net")
+    @Schema(description = "评论者网站", example = "https://blog.liuyuyang.net")
     private String url;
 
-    @ApiModelProperty(value = "评论内容", example = "这是一段评论内容", required = true)
+    @Schema(description = "评论内容", example = "这是一段评论内容", requiredMode = Schema.RequiredMode.REQUIRED)
     private String content;
 
-    @ApiModelProperty(value = "该评论所绑定的文章ID", example = "1", required = true)
+    @Schema(description = "该评论所绑定的文章ID", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer articleId;
 
-    @ApiModelProperty(value = "二级评论", example = "2", required = true)
+    @Schema(description = "二级评论", example = "2", requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer commentId;
 
-    @ApiModelProperty(value = "评论是否审核通过", example = "1")
+    @Schema(description = "评论是否审核通过", example = "1")
     private Integer auditStatus;
 
-    @ApiModelProperty(value = "创建时间", example = "1723533206613", required = true)
+    @Schema(description = "创建时间", example = "1723533206613", requiredMode = Schema.RequiredMode.REQUIRED)
     private String createTime;
 }

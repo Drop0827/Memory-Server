@@ -1,0 +1,270 @@
+﻿[INFO] Scanning for projects...
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for ohh.net:memory-blog:jar:1.0-SNAPSHOT
+[WARNING] 'build.plugins.plugin.version' for org.springframework.boot:spring-boot-maven-plugin is missing. @ line 100, column 21
+[WARNING] 
+[WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+[WARNING] 
+[WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+[WARNING] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] Memory-Server                                                      [pom]
+[INFO] memory-model                                                       [jar]
+[INFO] memory-blog                                                        [jar]
+[INFO] 
+[INFO] -----------------------< ohh.net:Memory-Server >------------------------
+[INFO] Building Memory-Server 1.0-SNAPSHOT                                [1/3]
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] ------------------------< ohh.net:memory-model >------------------------
+[INFO] Building memory-model 1.0-SNAPSHOT                                 [2/3]
+[INFO]   from memory-model\pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ memory-model ---
+[WARNING] Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory C:\Develop\Blog\Memory-Server\memory-model\src\main\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ memory-model ---
+[INFO] Changes detected - recompiling the module! :source
+[WARNING] File encoding has not been set, using platform encoding GBK, i.e. build is platform dependent!
+[INFO] Compiling 47 source files with javac [debug target 1.8] to target\classes
+[INFO] -------------------------------------------------------------
+[WARNING] COMPILATION WARNING : 
+[INFO] -------------------------------------------------------------
+[WARNING] 未与 -source 8 一起设置引导类路径
+[INFO] 1 warning
+[INFO] -------------------------------------------------------------
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/user/UserInfoDTO.java:[17,70] 编码 GBK 的不可映射字符 (0x92)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/ArticleConfig.java:[18,33] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/ArticleConfig.java:[18,34] 编码 GBK 的不可映射字符 (0x81)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/ArticleConfig.java:[18,61] 编码 GBK 的不可映射字符 (0x89)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/ArticleConfig.java:[18,81] 编码 GBK 的不可映射字符 (0x89)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/ArticleConfig.java:[18,95] 编码 GBK 的不可映射字符 (0x89)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/ArticleConfig.java:[24,38] 编码 GBK 的不可映射字符 (0xBF)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/ArticleConfig.java:[27,38] 编码 GBK 的不可映射字符 (0xA0)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/ArticleConfig.java:[27,59] 编码 GBK 的不可映射字符 (0x86)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/cate/CateFormDTO.java:[6,63] 编码 GBK 的不可映射字符 (0x85)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/cate/CateFormDTO.java:[17,52] 编码 GBK 的不可映射字符 (0xAF)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/cate/CateFormDTO.java:[36,36] 编码 GBK 的不可映射字符 (0xB9)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/cate/CateFormDTO.java:[37,59] 编码 GBK 的不可映射字符 (0x84)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/FilterVo.java:[8,41] 编码 GBK 的不可映射字符 (0x89)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/FilterVo.java:[10,32] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/FilterVo.java:[10,43] 编码 GBK 的不可映射字符 (0x89)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/FilterVo.java:[12,42] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/FilterVo.java:[12,43] 编码 GBK 的不可映射字符 (0x89)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/Swiper.java:[15,35] 编码 GBK 的不可映射字符 (0x98)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/Swiper.java:[15,54] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/Swiper.java:[17,32] 编码 GBK 的不可映射字符 (0xBE)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/Swiper.java:[19,35] 编码 GBK 的不可映射字符 (0xB0)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/Swiper.java:[19,54] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/Swiper.java:[19,65] 编码 GBK 的不可映射字符 (0xB0)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/Swiper.java:[21,35] 编码 GBK 的不可映射字符 (0xA5)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/Config.java:[23,32] 编码 GBK 的不可映射字符 (0xBC)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/WallEmailDTO.java:[10,30] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/WallEmailDTO.java:[12,53] 编码 GBK 的不可映射字符 (0xB4)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/WallEmailDTO.java:[12,57] 编码 GBK 的不可映射字符 (0x88)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/WallEmailDTO.java:[12,61] 编码 GBK 的不可映射字符 (0xA5)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/WallEmailDTO.java:[14,52] 编码 GBK 的不可映射字符 (0x86)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/WallEmailDTO.java:[16,52] 编码 GBK 的不可映射字符 (0xB4)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/FileDetail.java:[18,40] 编码 GBK 的不可映射字符 (0x82)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/FileDetail.java:[22,48] 编码 GBK 的不可映射字符 (0x8D)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/FileDetail.java:[28,35] 编码 GBK 的不可映射字符 (0x8D)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/FileDetail.java:[34,40] 编码 GBK 的不可映射字符 (0x84)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/FileDetail.java:[36,42] 编码 GBK 的不可映射字符 (0xB0)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/FileDetail.java:[42,37] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/FileDetail.java:[44,39] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/FileDetail.java:[44,65] 编码 GBK 的不可映射字符 (0x87)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/FileDetail.java:[46,40] 编码 GBK 的不可映射字符 (0xAE)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/FileDetail.java:[48,47] 编码 GBK 的不可映射字符 (0xAE)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/FileDetail.java:[54,34] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/FileDetail.java:[54,35] 编码 GBK 的不可映射字符 (0xA7)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/FileDetail.java:[64,43] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/FileDetail.java:[64,75] 编码 GBK 的不可映射字符 (0x8C)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/FileDetail.java:[64,84] 编码 GBK 的不可映射字符 (0x90)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/EmailDTO.java:[8,35] 编码 GBK 的不可映射字符 (0x85)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/EmailDTO.java:[10,52] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/EmailDTO.java:[10,57] 编码 GBK 的不可映射字符 (0x98)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/link/LinkFilterVo.java:[9,70] 编码 GBK 的不可映射字符 (0x89)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/LinkType.java:[16,52] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/LinkType.java:[18,36] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/LinkType.java:[18,47] 编码 GBK 的不可映射字符 (0x89)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/LinkType.java:[18,55] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/LinkType.java:[18,56] 编码 GBK 的不可映射字符 (0x89)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/User.java:[21,70] 编码 GBK 的不可映射字符 (0x92)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/CommentEmailDTO.java:[8,52] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/CommentEmailDTO.java:[8,57] 编码 GBK 的不可映射字符 (0x98)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/CommentEmailDTO.java:[10,30] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/CommentEmailDTO.java:[10,51] 编码 GBK 的不可映射字符 (0xBA)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/CommentEmailDTO.java:[12,53] 编码 GBK 的不可映射字符 (0xB4)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/CommentEmailDTO.java:[12,57] 编码 GBK 的不可映射字符 (0x88)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/CommentEmailDTO.java:[12,61] 编码 GBK 的不可映射字符 (0xA5)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/CommentEmailDTO.java:[14,52] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/CommentEmailDTO.java:[14,57] 编码 GBK 的不可映射字符 (0xB9)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/article/ArticleFormDTO.java:[29,22] 编码 GBK 的不可映射字符 (0x89)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/article/ArticleFormDTO.java:[29,50] 编码 GBK 的不可映射字符 (0xB5)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/article/ArticleFormDTO.java:[39,35] 编码 GBK 的不可映射字符 (0xB9)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/comment/CommentFormDTO.java:[13,35] 编码 GBK 的不可映射字符 (0xB0)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/comment/CommentFormDTO.java:[16,35] 编码 GBK 的不可映射字符 (0x8F)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/comment/CommentFormDTO.java:[19,35] 编码 GBK 的不可映射字符 (0xB1)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/comment/CommentFormDTO.java:[22,35] 编码 GBK 的不可映射字符 (0x99)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/comment/CommentFormDTO.java:[25,52] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/comment/CommentFormDTO.java:[25,60] 编码 GBK 的不可映射字符 (0xB9)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/DismissEmailDTO.java:[12,32] 编码 GBK 的不可映射字符 (0xB9)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/DismissEmailDTO.java:[14,53] 编码 GBK 的不可映射字符 (0xB4)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/DismissEmailDTO.java:[14,57] 编码 GBK 的不可映射字符 (0x88)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/DismissEmailDTO.java:[14,61] 编码 GBK 的不可映射字符 (0xA5)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/album/AlbumCateAddFormDTO.java:[16,38] 编码 GBK 的不可映射字符 (0x8F)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/wall/WallFilterVo.java:[9,39] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/wall/WallFilterVo.java:[9,40] 编码 GBK 的不可映射字符 (0x89)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/wall/WallFilterVo.java:[12,64] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/article/ArticleFillterVo.java:[11,39] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/article/ArticleFillterVo.java:[11,40] 编码 GBK 的不可映射字符 (0x89)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/article/ArticleFillterVo.java:[13,39] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/article/ArticleFillterVo.java:[13,40] 编码 GBK 的不可映射字符 (0x89)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/article/ArticleFillterVo.java:[15,35] 编码 GBK 的不可映射字符 (0xBF)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/article/ArticleFillterVo.java:[15,42] 编码 GBK 的不可映射字符 (0x9A)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/article/ArticleFillterVo.java:[15,51] 编码 GBK 的不可映射字符 (0x9A)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/article/ArticleFillterVo.java:[17,38] 编码 GBK 的不可映射字符 (0xA4)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/article/ArticleFillterVo.java:[17,45] 编码 GBK 的不可映射字符 (0x9A)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/article/ArticleFillterVo.java:[17,57] 编码 GBK 的不可映射字符 (0x9A)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/album/AlbumImageAddFormDTO.java:[11,67] 编码 GBK 的不可映射字符 (0x8B)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/comment/CommentFilterVo.java:[12,70] 编码 GBK 的不可映射字符 (0x89)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/comment/CommentFilterVo.java:[15,41] 编码 GBK 的不可映射字符 (0x89)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/Oss.java:[33,32] 编码 GBK 的不可映射字符 (0xB6)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/Oss.java:[43,26] 编码 GBK 的不可映射字符 (0xA8)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/Oss.java:[45,46] 编码 GBK 的不可映射字符 (0xA8)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/Rss.java:[8,30] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/Article.java:[18,27] 未结束的字符串文字
+[INFO] 101 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for Memory-Server 1.0-SNAPSHOT:
+[INFO] 
+[INFO] Memory-Server ...................................... SUCCESS [  0.002 s]
+[INFO] memory-model ....................................... FAILURE [  0.641 s]
+[INFO] memory-blog ........................................ SKIPPED
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  0.830 s
+[INFO] Finished at: 2026-01-25T18:34:49+08:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.11.0:compile (default-compile) on project memory-model: Compilation failure: Compilation failure: 
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/user/UserInfoDTO.java:[17,70] 编码 GBK 的不可映射字符 (0x92)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/ArticleConfig.java:[18,33] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/ArticleConfig.java:[18,34] 编码 GBK 的不可映射字符 (0x81)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/ArticleConfig.java:[18,61] 编码 GBK 的不可映射字符 (0x89)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/ArticleConfig.java:[18,81] 编码 GBK 的不可映射字符 (0x89)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/ArticleConfig.java:[18,95] 编码 GBK 的不可映射字符 (0x89)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/ArticleConfig.java:[24,38] 编码 GBK 的不可映射字符 (0xBF)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/ArticleConfig.java:[27,38] 编码 GBK 的不可映射字符 (0xA0)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/ArticleConfig.java:[27,59] 编码 GBK 的不可映射字符 (0x86)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/cate/CateFormDTO.java:[6,63] 编码 GBK 的不可映射字符 (0x85)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/cate/CateFormDTO.java:[17,52] 编码 GBK 的不可映射字符 (0xAF)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/cate/CateFormDTO.java:[36,36] 编码 GBK 的不可映射字符 (0xB9)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/cate/CateFormDTO.java:[37,59] 编码 GBK 的不可映射字符 (0x84)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/FilterVo.java:[8,41] 编码 GBK 的不可映射字符 (0x89)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/FilterVo.java:[10,32] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/FilterVo.java:[10,43] 编码 GBK 的不可映射字符 (0x89)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/FilterVo.java:[12,42] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/FilterVo.java:[12,43] 编码 GBK 的不可映射字符 (0x89)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/Swiper.java:[15,35] 编码 GBK 的不可映射字符 (0x98)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/Swiper.java:[15,54] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/Swiper.java:[17,32] 编码 GBK 的不可映射字符 (0xBE)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/Swiper.java:[19,35] 编码 GBK 的不可映射字符 (0xB0)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/Swiper.java:[19,54] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/Swiper.java:[19,65] 编码 GBK 的不可映射字符 (0xB0)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/Swiper.java:[21,35] 编码 GBK 的不可映射字符 (0xA5)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/Config.java:[23,32] 编码 GBK 的不可映射字符 (0xBC)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/WallEmailDTO.java:[10,30] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/WallEmailDTO.java:[12,53] 编码 GBK 的不可映射字符 (0xB4)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/WallEmailDTO.java:[12,57] 编码 GBK 的不可映射字符 (0x88)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/WallEmailDTO.java:[12,61] 编码 GBK 的不可映射字符 (0xA5)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/WallEmailDTO.java:[14,52] 编码 GBK 的不可映射字符 (0x86)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/WallEmailDTO.java:[16,52] 编码 GBK 的不可映射字符 (0xB4)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/FileDetail.java:[18,40] 编码 GBK 的不可映射字符 (0x82)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/FileDetail.java:[22,48] 编码 GBK 的不可映射字符 (0x8D)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/FileDetail.java:[28,35] 编码 GBK 的不可映射字符 (0x8D)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/FileDetail.java:[34,40] 编码 GBK 的不可映射字符 (0x84)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/FileDetail.java:[36,42] 编码 GBK 的不可映射字符 (0xB0)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/FileDetail.java:[42,37] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/FileDetail.java:[44,39] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/FileDetail.java:[44,65] 编码 GBK 的不可映射字符 (0x87)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/FileDetail.java:[46,40] 编码 GBK 的不可映射字符 (0xAE)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/FileDetail.java:[48,47] 编码 GBK 的不可映射字符 (0xAE)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/FileDetail.java:[54,34] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/FileDetail.java:[54,35] 编码 GBK 的不可映射字符 (0xA7)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/FileDetail.java:[64,43] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/FileDetail.java:[64,75] 编码 GBK 的不可映射字符 (0x8C)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/FileDetail.java:[64,84] 编码 GBK 的不可映射字符 (0x90)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/EmailDTO.java:[8,35] 编码 GBK 的不可映射字符 (0x85)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/EmailDTO.java:[10,52] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/EmailDTO.java:[10,57] 编码 GBK 的不可映射字符 (0x98)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/link/LinkFilterVo.java:[9,70] 编码 GBK 的不可映射字符 (0x89)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/LinkType.java:[16,52] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/LinkType.java:[18,36] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/LinkType.java:[18,47] 编码 GBK 的不可映射字符 (0x89)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/LinkType.java:[18,55] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/LinkType.java:[18,56] 编码 GBK 的不可映射字符 (0x89)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/User.java:[21,70] 编码 GBK 的不可映射字符 (0x92)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/CommentEmailDTO.java:[8,52] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/CommentEmailDTO.java:[8,57] 编码 GBK 的不可映射字符 (0x98)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/CommentEmailDTO.java:[10,30] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/CommentEmailDTO.java:[10,51] 编码 GBK 的不可映射字符 (0xBA)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/CommentEmailDTO.java:[12,53] 编码 GBK 的不可映射字符 (0xB4)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/CommentEmailDTO.java:[12,57] 编码 GBK 的不可映射字符 (0x88)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/CommentEmailDTO.java:[12,61] 编码 GBK 的不可映射字符 (0xA5)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/CommentEmailDTO.java:[14,52] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/CommentEmailDTO.java:[14,57] 编码 GBK 的不可映射字符 (0xB9)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/article/ArticleFormDTO.java:[29,22] 编码 GBK 的不可映射字符 (0x89)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/article/ArticleFormDTO.java:[29,50] 编码 GBK 的不可映射字符 (0xB5)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/article/ArticleFormDTO.java:[39,35] 编码 GBK 的不可映射字符 (0xB9)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/comment/CommentFormDTO.java:[13,35] 编码 GBK 的不可映射字符 (0xB0)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/comment/CommentFormDTO.java:[16,35] 编码 GBK 的不可映射字符 (0x8F)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/comment/CommentFormDTO.java:[19,35] 编码 GBK 的不可映射字符 (0xB1)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/comment/CommentFormDTO.java:[22,35] 编码 GBK 的不可映射字符 (0x99)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/comment/CommentFormDTO.java:[25,52] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/comment/CommentFormDTO.java:[25,60] 编码 GBK 的不可映射字符 (0xB9)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/DismissEmailDTO.java:[12,32] 编码 GBK 的不可映射字符 (0xB9)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/DismissEmailDTO.java:[14,53] 编码 GBK 的不可映射字符 (0xB4)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/DismissEmailDTO.java:[14,57] 编码 GBK 的不可映射字符 (0x88)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/email/DismissEmailDTO.java:[14,61] 编码 GBK 的不可映射字符 (0xA5)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/album/AlbumCateAddFormDTO.java:[16,38] 编码 GBK 的不可映射字符 (0x8F)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/wall/WallFilterVo.java:[9,39] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/wall/WallFilterVo.java:[9,40] 编码 GBK 的不可映射字符 (0x89)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/wall/WallFilterVo.java:[12,64] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/article/ArticleFillterVo.java:[11,39] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/article/ArticleFillterVo.java:[11,40] 编码 GBK 的不可映射字符 (0x89)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/article/ArticleFillterVo.java:[13,39] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/article/ArticleFillterVo.java:[13,40] 编码 GBK 的不可映射字符 (0x89)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/article/ArticleFillterVo.java:[15,35] 编码 GBK 的不可映射字符 (0xBF)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/article/ArticleFillterVo.java:[15,42] 编码 GBK 的不可映射字符 (0x9A)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/article/ArticleFillterVo.java:[15,51] 编码 GBK 的不可映射字符 (0x9A)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/article/ArticleFillterVo.java:[17,38] 编码 GBK 的不可映射字符 (0xA4)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/article/ArticleFillterVo.java:[17,45] 编码 GBK 的不可映射字符 (0x9A)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/article/ArticleFillterVo.java:[17,57] 编码 GBK 的不可映射字符 (0x9A)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/dto/album/AlbumImageAddFormDTO.java:[11,67] 编码 GBK 的不可映射字符 (0x8B)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/comment/CommentFilterVo.java:[12,70] 编码 GBK 的不可映射字符 (0x89)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/vo/comment/CommentFilterVo.java:[15,41] 编码 GBK 的不可映射字符 (0x89)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/Oss.java:[33,32] 编码 GBK 的不可映射字符 (0xB6)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/Oss.java:[43,26] 编码 GBK 的不可映射字符 (0xA8)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/Oss.java:[45,46] 编码 GBK 的不可映射字符 (0xA8)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/Rss.java:[8,30] 编码 GBK 的不可映射字符 (0x80)
+[ERROR] /C:/Develop/Blog/Memory-Server/memory-model/src/main/java/ohh/net/model/Article.java:[18,27] 未结束的字符串文字
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+[ERROR] 
+[ERROR] After correcting the problems, you can resume the build with the command
+[ERROR]   mvn <args> -rf :memory-model

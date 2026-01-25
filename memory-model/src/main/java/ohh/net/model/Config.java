@@ -1,28 +1,30 @@
 package ohh.net.model;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*; // 建议直接用 * 包含所有
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.Map;
 
 @Data
+// 重点：必须加上 autoResultMap = true，否则 JSON 映射会失效
+@TableName(value = "env_config", autoResultMap = true)
+@Schema(description = "配置实体")
 public class Config {
+
     @TableId(type = IdType.AUTO)
-    @ApiModelProperty(value = "环境配置ID")
+    @Schema(description = "环境配置ID")
     private Integer id;
 
-    @ApiModelProperty(value = "配置名称", example = "database_config", required = true)
+    @Schema(description = "配置名称", example = "database_config", requiredMode = Schema.RequiredMode.REQUIRED)
     private String name;
 
+    // MyBatis-Plus 会自动将数据库里的 JSON 字符串转为 Java 的 Map
     @TableField(typeHandler = JacksonTypeHandler.class)
-    @ApiModelProperty(value = "配置值(JSON格式)", example = "{\"name\":\"宇阳\"}", required = true)
+    @Schema(description = "配置值(JSON格式)", example = "{\"name\":\"OHH\"}", requiredMode = Schema.RequiredMode.REQUIRED)
     private Map<String, Object> value;
 
-    @ApiModelProperty(value = "配置备注")
+    @Schema(description = "配置备注")
     private String notes;
 }

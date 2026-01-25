@@ -1,20 +1,20 @@
 package ohh.net.dto.email;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 @Data
 public class DismissEmailDTO extends EmailDTO {
-    @ApiModelProperty(value = "邮件标题", example = "驳回通知", required = true)
+    @Schema(description = "邮件标题", example = "驳回通知", requiredMode = Schema.RequiredMode.REQUIRED)
     private String subject;
-    @ApiModelProperty(value = "类型", example = "友联", required = true)
+    @Schema(description = "类型", example = "友联", requiredMode = Schema.RequiredMode.REQUIRED)
     String type;
-    @ApiModelProperty(value = "接收方", example = "张三", required = true)
+    @Schema(description = "接收方", example = "张三", requiredMode = Schema.RequiredMode.REQUIRED)
     String recipient;
-    @ApiModelProperty(value = "评论时间", example = "2024年10月15日 14:44", required = true)
+    @Schema(description = "评论时间", example = "2024年10月15日 14:44", requiredMode = Schema.RequiredMode.REQUIRED)
     String time;
-    @ApiModelProperty(value = "评论内容", example = "涉嫌违规", required = true)
+    @Schema(description = "评论内容", example = "涉嫌违规", requiredMode = Schema.RequiredMode.REQUIRED)
     String content;
-    @ApiModelProperty(value = "文章地址", example = "https://liuyuyang.net", required = true)
+    @Schema(description = "文章地址", example = "https://liuyuyang.net", requiredMode = Schema.RequiredMode.REQUIRED)
     String url;
 }
