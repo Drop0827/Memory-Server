@@ -1,0 +1,22 @@
+package ohh.net.model;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+
+@Data
+@TableName("article_cate")
+public class ArticleCate {
+    @TableId(type = IdType.AUTO)
+    @Schema(description = "ID")
+    private Integer id;
+
+    @Schema(description = "文章ID", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
+    private Integer articleId;
+
+    @Schema(description = "分类ID", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
+    private Integer cateId;
+}
