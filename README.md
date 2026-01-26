@@ -1,7 +1,3 @@
-<p align="center" style="font-size:20px; font-weight:700;">Memory</p>
-
-<p align="center" style="margin-bottom:10px">年轻、高颜值、全开源、永不收费的现代化博客管理系统</p>
-
 # 🎉 Memory 现代化博客管理系统
 
 🎉 `Memory` 是一个年轻、高颜值、全开源、永不收费的现代化博客管理系统，它是一个基于 `NextJS` + `Spring Boot` 的产物，所有技术栈都是目前市面上最主流的
