@@ -51,20 +51,22 @@ dromara:
 file:
   dir: C:/Develop/uploads/
 
-# Knife4j / OpenAPI 3 配置 (适配 v4.0+)
+# SpringDoc OpenAPI 3 配置（暂时使用标准 Swagger UI）
+springdoc:
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+  swagger-ui:
+    enabled: true    # 启用标准 Swagger UI
+    path: /swagger-ui.html
+  default-flat-param-object: true
+  paths-to-match: /api/**
+  packages-to-scan: ohh.net.web.controller
+
+# Knife4j 暂时禁用（等 Swagger UI 正常后再启用）
 knife4j:
-  enable: true
-  openapi:
-    title: "Memory 在线API文档 (ohh版)"
-    description: "有些梦虽然遥不可及，但并不是不可能实现!"
-    version: v4.0
-    group:
-      default:
-        group-name: default
-        api-rule: package
-        # 【重要】这里必须改成你现在的包名，否则文档里没接口
-        api-rule-resources:
-          - ohh.net.web.controller
+  enable: false
+  production: false
 
 # 原作者的自定义限流逻辑 (RateLimitAspect 会读取这里)
 blog:

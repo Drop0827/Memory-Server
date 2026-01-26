@@ -27,8 +27,7 @@ public class WebConfig implements WebMvcConfigurer {
             "/swagger-resources",
             "/webjars",
             "/v2/api-docs",
-            "/swagger-ui.html"
-    ));
+            "/swagger-ui.html"));
 
     @Override
     public void configurePathMatch(PathMatchConfigurer configurer) {
@@ -49,7 +48,16 @@ public class WebConfig implements WebMvcConfigurer {
         // 拦截指定请求
         registry.addInterceptor(jwtTokenAdminInterceptor)
                 .addPathPatterns("/api/**")
-                .excludePathPatterns("/api/user/login");
+                .excludePathPatterns(
+                        "/api/user/login",
+                        // Swagger 和 Knife4j 相关路径
+                        "/doc.html",
+                        "/doc.html/**",
+                        "/swagger-resources/**",
+                        "/swagger-ui/**",
+                        "/v3/api-docs/**",
+                        "/webjars/**",
+                        "/favicon.ico");
     }
 
     @Override

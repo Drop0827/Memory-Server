@@ -3,6 +3,8 @@ package ohh.net.common.interceptor;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import io.jsonwebtoken.Claims;
 import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import ohh.net.common.annotation.NoTokenRequired;
 import ohh.net.common.exception.CustomException;
 import ohh.net.common.properties.JwtProperties;
@@ -17,9 +19,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import jakarta.annotation.Resource;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 import java.util.List;
 
@@ -36,7 +35,8 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor {
     @Resource
     private BlackListUtils blackListUtils;
 
-    public boolean preHandle(HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler) {
+    public boolean preHandle(HttpServletRequest request, @NotNull HttpServletResponse response,
+            @NotNull Object handler) {
         // 从请求头中获取令牌
         String token = request.getHeader(jwtProperties.getTokenName());
 
@@ -55,6 +55,12 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor {
             return true;
         }
 
+        // 判断是否为 HandlerMethod（Controller 方法）
+        // 如果不是（例如静态资源请求），直接放行
+        if (!(handler instanceof HandlerMethod)) {
+            return true;
+        }
+
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = handlerMethod.getMethod();
 
@@ -70,14 +76,16 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor {
             // 如果是GET请求没有传token就直接放行，传了token就必须经过验证
             if ("GET".equalsIgnoreCase(request.getMethod())) {
                 if (token != null) {
-                    if (token.startsWith("Bearer ")) token = token.substring(7);
+                    if (token.startsWith("Bearer "))
+                        token = token.substring(7);
                     JwtUtils.parseJWT(token);
                 }
                 return true;
             }
 
             // 处理Authorization的Bearer
-            if (token.startsWith("Bearer ")) token = token.substring(7);
+            if (token.startsWith("Bearer "))
+                token = token.substring(7);
 
             LambdaQueryWrapper<UserToken> userTokenLambdaQueryWrapper = new LambdaQueryWrapper<>();
             userTokenLambdaQueryWrapper.eq(UserToken::getToken, token);
