@@ -51,28 +51,32 @@ dromara:
 file:
   dir: C:/Develop/uploads/
 
-# SpringDoc OpenAPI 3 配置（暂时使用标准 Swagger UI）
+# SpringDoc OpenAPI 3 配置
 springdoc:
   api-docs:
     enabled: true
+    # WebConfig 已将此路径从 /api 前缀中排除
     path: /v3/api-docs
   swagger-ui:
-    enabled: true    # 启用标准 Swagger UI
+    enabled: true
     path: /swagger-ui.html
+    # 在 Spring Boot 3 中，实际路径是 /swagger-ui/index.html
   default-flat-param-object: true
-  paths-to-match: /api/**
+  paths-to-match: /**
   packages-to-scan: ohh.net.web.controller
 
-# Knife4j 暂时禁用（等 Swagger UI 正常后再启用）
+# Knife4j 增强文档（启用后访问 /doc.html）
 knife4j:
-  enable: false
+  enable: true
   production: false
+  setting:
+    language: zh-CN
 
 # 原作者的自定义限流逻辑 (RateLimitAspect 会读取这里)
 blog:
   limit:
-    tokens: 20      # 每周期允许 20 次
-    duration: 60    # 周期为 60 秒
+    tokens: 20 # 每周期允许 20 次
+    duration: 60 # 周期为 60 秒
     blacklist:
       threshold: 10 # 触发黑名单的阈值
-      duration: 60  # 黑名单持续时间(分钟)
+      duration: 60 # 黑名单持续时间(分钟)

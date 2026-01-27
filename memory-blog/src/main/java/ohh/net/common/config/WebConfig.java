@@ -27,19 +27,31 @@ public class WebConfig implements WebMvcConfigurer {
             "/swagger-resources",
             "/webjars",
             "/v2/api-docs",
-            "/swagger-ui.html"));
+            "/v3/api-docs",
+            "/swagger-ui.html",
+            "/swagger-ui"));
 
     @Override
     public void configurePathMatch(PathMatchConfigurer configurer) {
         // 指定统一API访问前缀
+        // 只为 ohh.net.web.controller 包下的 Controller 添加 /api 前缀
         configurer.addPathPrefix("/api", c -> {
-            RequestMapping requestMapping = c.getAnnotation(RequestMapping.class);
+            // 检查 Controller 类是否在业务包中
+            String packageName = c.getPackageName();
+            boolean isBusinessController = packageName.startsWith("ohh.net.web.controller");
 
-            if (requestMapping != null && requestMapping.value().length > 0) {
-                String path = requestMapping.value()[0];
-                return !EXCLUDED_PATHS.contains(path);
+            // 如果是业务 Controller，还需要检查是否在排除列表中
+            if (isBusinessController) {
+                RequestMapping requestMapping = c.getAnnotation(RequestMapping.class);
+                if (requestMapping != null && requestMapping.value().length > 0) {
+                    String path = requestMapping.value()[0];
+                    return !EXCLUDED_PATHS.contains(path);
+                }
+                return true;
             }
-            return true;
+
+            // 非业务 Controller（如 SpringDoc 的内部 Controller）不添加前缀
+            return false;
         });
     }
 
@@ -57,7 +69,12 @@ public class WebConfig implements WebMvcConfigurer {
                         "/swagger-ui/**",
                         "/v3/api-docs/**",
                         "/webjars/**",
-                        "/favicon.ico");
+                        "/favicon.ico")
+                .excludePathPatterns("/doc.html")
+                .excludePathPatterns("/webjars/**")
+                .excludePathPatterns("/swagger-resources/**")
+                .excludePathPatterns("/v2/api-docs/**")
+                .excludePathPatterns("/v3/api-docs/**");
     }
 
     @Override
