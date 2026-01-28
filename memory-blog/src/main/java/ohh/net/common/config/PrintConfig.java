@@ -17,11 +17,11 @@ public class PrintConfig {
 
     @EventListener
     public void printConfigurations(ApplicationStartedEvent event) {
-         log.info("\n----------------------------------------------------------\n\t\t" +
-                        "服务已启动: 欢迎使用 Memory 博客管理系统 \n\t\t" +
-                        "接口地址: \thttp://localhost:{}/api\n\t\t" +
-                        "API文档: \thttp://localhost:{}/doc.html\n\t\t" +
-                        "----------------------------------------------------------",
+        log.info("\n----------------------------------------------------------\n\t\t" +
+                "服务已启动: 欢迎使用 Memory 博客管理系统 \n\t\t" +
+                "接口地址: \thttp://localhost:{}\n\t\t" +
+                "API文档: \thttp://localhost:{}/doc.html\n\t\t" +
+                "----------------------------------------------------------",
                 environment.getProperty("server.port"), environment.getProperty("server.port"));
     }
-} 
+}
