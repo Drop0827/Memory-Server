@@ -4,7 +4,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import ohh.net.vo.FilterVo;
 import lombok.Data;
 
+import lombok.EqualsAndHashCode;
+
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class WallFilterVo extends FilterVo {
     @Schema(description = "根据分类进行筛选")
     private Integer cateId;

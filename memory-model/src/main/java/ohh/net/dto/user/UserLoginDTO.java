@@ -1,7 +1,6 @@
 package ohh.net.dto.user;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import ohh.net.model.BaseModel;
 import lombok.Data;
 
 @Data

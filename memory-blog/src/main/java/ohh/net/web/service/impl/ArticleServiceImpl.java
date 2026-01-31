@@ -129,7 +129,6 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Override
     public void del(Integer id, Integer is_del) {
-        Article article = articleMapper.selectById(id);
 
         LambdaQueryWrapper<ArticleConfig> articleConfigLambdaQueryWrapper = new LambdaQueryWrapper<>();
         articleConfigLambdaQueryWrapper.eq(ArticleConfig::getArticleId, id);
@@ -169,7 +168,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         delArticleCorrelationData(ids);
 
         // 批量删除文章
-        if (ids == null || ids.isEmpty()) return;
+        if (ids == null || ids.isEmpty())
+            return;
 
         QueryWrapper<Article> queryWrapperArticle = new QueryWrapper<>();
         queryWrapperArticle.in("id", ids);
@@ -226,9 +226,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
         String description = data.getDescription();
         String content = data.getContent();
-        // todo ps by:laifeng 这里需要优化， 对于角色判断，请将角色逻辑移到controller层，不要在service中进行，而且可以通过aop进行操作，避免重复判断
+        // todo ps by:laifeng 这里需要优化，
+        // 对于角色判断，请将角色逻辑移到controller层，不要在service中进行，而且可以通过aop进行操作，避免重复判断
         String token = OhhUtils.getHeader("Authorization");
-        boolean isAdmin = !"".equals(token) && ohhUtils.isAdmin(token);
+        boolean isAdmin = !"".equals(token) && OhhUtils.isAdmin(token);
 
         ArticleConfig config = data.getConfig();
 
@@ -257,7 +258,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
                 data.setContent("该文章需要密码才能查看");
 
                 // 验证密码是否正确
-                // if (config.getPassword().equals(DigestUtils.md5DigestAsHex(password.getBytes()))) {
+                // if
+                // (config.getPassword().equals(DigestUtils.md5DigestAsHex(password.getBytes())))
+                // {
                 if (config.getPassword().equals(password)) {
                     data.setDescription(description);
                     data.setContent(content);
@@ -342,7 +345,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         queryWrapper.in("id", articleIds);
         List<Article> list = articleMapper.selectList(queryWrapper);
 
-        boolean isAdmin = ohhUtils.isAdmin(token);
+        boolean isAdmin = OhhUtils.isAdmin(token);
         list = list.stream()
                 .map(article -> bindingData(article.getId()))
                 // 如果是普通用户则不显示隐藏的文章，如果是管理员则显示
@@ -354,7 +357,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
                     }
 
                     // 非管理员不能看到隐藏文章
-                    return !Objects.equals(article.getConfig().getStatus(), "hide");
+                    return !Objects.equals(config.getStatus(), "hide");
                 })
                 .collect(Collectors.toList());
 
@@ -373,9 +376,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Override
     public Page<Article> paging(ArticleFillterVo filterVo, PageVo pageVo, String token) {
         List<Article> list = list(filterVo, token);
-        boolean isAdmin = ohhUtils.isAdmin(token);
+        boolean isAdmin = OhhUtils.isAdmin(token);
         if (!isAdmin) {
-            list = list.stream().filter(k -> !Objects.equals(k.getConfig().getStatus(), "no_home")).collect(Collectors.toList());
+            list = list.stream().filter(k -> !Objects.equals(k.getConfig().getStatus(), "no_home"))
+                    .collect(Collectors.toList());
         }
         Page<Article> result = ohhUtils.getPageData(pageVo, list);
         return result;
@@ -385,7 +389,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     public Page<Article> getCateArticleList(Integer id, PageVo pageVo) {
         // 通过分类 id 查询出所有文章id
         QueryWrapper<ArticleCate> queryWrapperArticleCate = new QueryWrapper<>();
-        queryWrapperArticleCate.eq("cate_id", id);  // 修改in为eq,因为只查询单个分类
+        queryWrapperArticleCate.eq("cate_id", id); // 修改in为eq,因为只查询单个分类
         List<Integer> articleIds = articleCateMapper.selectList(queryWrapperArticleCate).stream()
                 .map(ArticleCate::getArticleId)
                 .collect(Collectors.toList());
@@ -399,7 +403,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         articleConfigLambdaQueryWrapper.in(ArticleConfig::getArticleId, articleIds);
         articleConfigLambdaQueryWrapper.eq(ArticleConfig::getIsDraft, 0);
         articleConfigLambdaQueryWrapper.eq(ArticleConfig::getIsDel, 0);
-        articleIds = articleConfigMapper.selectList(articleConfigLambdaQueryWrapper).stream().map(ArticleConfig::getArticleId).collect(Collectors.toList());
+        articleIds = articleConfigMapper.selectList(articleConfigLambdaQueryWrapper).stream()
+                .map(ArticleConfig::getArticleId).collect(Collectors.toList());
 
         // 如果过滤后没有文章,直接返回空页
         if (articleIds.isEmpty()) {
@@ -417,14 +422,14 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
         // 绑定数据并处理加密文章
         page.setRecords(page.getRecords().stream().map(article -> {
-                    Article boundArticle = bindingData(article.getId());
-                    // 如果有密码，设置描述和内容为提示信息
-                    if (boundArticle.getConfig().getIsEncrypt() == 1) {
-                        boundArticle.setDescription("该文章是加密的");
-                        boundArticle.setContent("该文章是加密的");
-                    }
-                    return boundArticle;
-                }).filter(article -> !Objects.equals(article.getConfig().getStatus(), "hide"))  // 修改过滤条件
+            Article boundArticle = bindingData(article.getId());
+            // 如果有密码，设置描述和内容为提示信息
+            if (boundArticle.getConfig().getIsEncrypt() == 1) {
+                boundArticle.setDescription("该文章是加密的");
+                boundArticle.setContent("该文章是加密的");
+            }
+            return boundArticle;
+        }).filter(article -> !Objects.equals(article.getConfig().getStatus(), "hide")) // 修改过滤条件
                 .collect(Collectors.toList()));
 
         return page;
@@ -448,7 +453,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         articleConfigLambdaQueryWrapper.in(ArticleConfig::getArticleId, articleIds);
         articleConfigLambdaQueryWrapper.eq(ArticleConfig::getIsDraft, 0);
         articleConfigLambdaQueryWrapper.eq(ArticleConfig::getIsDel, 0);
-        articleIds = articleConfigMapper.selectList(articleConfigLambdaQueryWrapper).stream().map(ArticleConfig::getArticleId).collect(Collectors.toList());
+        articleIds = articleConfigMapper.selectList(articleConfigLambdaQueryWrapper).stream()
+                .map(ArticleConfig::getArticleId).collect(Collectors.toList());
 
         // 如果过滤后没有文章,直接返回空页
         if (articleIds.isEmpty()) {
@@ -465,14 +471,14 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
         // 绑定数据并处理加密文章
         page.setRecords(page.getRecords().stream().map(article -> {
-                    Article boundArticle = bindingData(article.getId());
-                    // 如果有密码，设置描述和内容为提示信息
-                    if (boundArticle.getConfig().getIsEncrypt() == 1) {
-                        boundArticle.setDescription("该文章是加密的");
-                        boundArticle.setContent("该文章是加密的");
-                    }
-                    return boundArticle;
-                })
+            Article boundArticle = bindingData(article.getId());
+            // 如果有密码，设置描述和内容为提示信息
+            if (boundArticle.getConfig().getIsEncrypt() == 1) {
+                boundArticle.setDescription("该文章是加密的");
+                boundArticle.setContent("该文章是加密的");
+            }
+            return boundArticle;
+        })
                 .filter(article -> !Objects.equals(article.getConfig().getStatus(), "hide"))
                 .collect(Collectors.toList()));
 
@@ -487,19 +493,22 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
                     QueryWrapper<ArticleConfig> articleConfigQueryWrapper = new QueryWrapper<>();
                     articleConfigQueryWrapper.eq("article_id", article.getId());
                     ArticleConfig config = articleConfigMapper.selectOne(articleConfigQueryWrapper);
-                    return config != null && "".equals(config.getPassword()) && Objects.equals(config.getStatus(), "default");
+                    return config != null && "".equals(config.getPassword())
+                            && Objects.equals(config.getStatus(), "default");
                 })
                 .map(Article::getId)
                 .collect(Collectors.toList());
         // 优化：提前返回
-        if (ids.isEmpty()) return new ArrayList<>();
+        if (ids.isEmpty())
+            return new ArrayList<>();
 
         // 不能是已删除或草稿
         LambdaQueryWrapper<ArticleConfig> articleConfigLambdaQueryWrapper = new LambdaQueryWrapper<>();
         articleConfigLambdaQueryWrapper.in(ArticleConfig::getArticleId, ids);
         articleConfigLambdaQueryWrapper.eq(ArticleConfig::getIsDraft, 0);
         articleConfigLambdaQueryWrapper.eq(ArticleConfig::getIsDel, 0);
-        ids = articleConfigMapper.selectList(articleConfigLambdaQueryWrapper).stream().map(ArticleConfig::getArticleId).collect(Collectors.toList());
+        ids = articleConfigMapper.selectList(articleConfigLambdaQueryWrapper).stream().map(ArticleConfig::getArticleId)
+                .collect(Collectors.toList());
         if (ids.size() <= count) {
             return ids.stream().map(id -> get(id, "")).collect(Collectors.toList());
         }
@@ -522,7 +531,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Override
     public void recordView(Integer id) {
         Article data = articleMapper.selectById(id);
-        if (data == null) throw new CustomException(400, "获取失败：该文章不存在");
+        if (data == null)
+            throw new CustomException(400, "获取失败：该文章不存在");
         data.setView(data.getView() + 1);
         articleMapper.updateById(data);
     }
@@ -532,12 +542,14 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     public Article bindingData(Integer id) {
         Article data = articleMapper.selectById(id);
 
-        if (data == null) throw new CustomException(400, "获取文章失败：该文章不存在");
+        if (data == null)
+            throw new CustomException(400, "获取文章失败：该文章不存在");
 
         // 查询当前文章的分类ID
         QueryWrapper<ArticleCate> queryWrapperCateIds = new QueryWrapper<>();
         queryWrapperCateIds.eq("article_id", id);
-        List<Integer> cate_ids = articleCateMapper.selectList(queryWrapperCateIds).stream().map(ArticleCate::getCateId).collect(Collectors.toList());
+        List<Integer> cate_ids = articleCateMapper.selectList(queryWrapperCateIds).stream().map(ArticleCate::getCateId)
+                .collect(Collectors.toList());
 
         // 如果有分类，则绑定分类信息
         if (!cate_ids.isEmpty()) {
@@ -550,7 +562,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         // 查询当前文章的标签ID
         QueryWrapper<ArticleTag> queryWrapperTagIds = new QueryWrapper<>();
         queryWrapperTagIds.eq("article_id", id);
-        List<Integer> tag_ids = articleTagMapper.selectList(queryWrapperTagIds).stream().map(ArticleTag::getTagId).collect(Collectors.toList());
+        List<Integer> tag_ids = articleTagMapper.selectList(queryWrapperTagIds).stream().map(ArticleTag::getTagId)
+                .collect(Collectors.toList());
 
         if (!tag_ids.isEmpty()) {
             QueryWrapper<Tag> queryWrapperTagList = new QueryWrapper<>();
@@ -579,7 +592,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         if (filterVo.getCateId() != null) {
             QueryWrapper<ArticleCate> queryWrapperArticleIds = new QueryWrapper<>();
             queryWrapperArticleIds.in("cate_id", filterVo.getCateId());
-            List<Integer> articleIds = articleCateMapper.selectList(queryWrapperArticleIds).stream().map(ArticleCate::getArticleId).collect(Collectors.toList());
+            List<Integer> articleIds = articleCateMapper.selectList(queryWrapperArticleIds).stream()
+                    .map(ArticleCate::getArticleId).collect(Collectors.toList());
 
             if (!articleIds.isEmpty()) {
                 queryWrapper.in("id", articleIds);
@@ -593,7 +607,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         if (filterVo.getTagId() != null) {
             QueryWrapper<ArticleTag> queryWrapperArticleIds = new QueryWrapper<>();
             queryWrapperArticleIds.in("tag_id", filterVo.getTagId());
-            List<Integer> articleIds = articleTagMapper.selectList(queryWrapperArticleIds).stream().map(ArticleTag::getArticleId).collect(Collectors.toList());
+            List<Integer> articleIds = articleTagMapper.selectList(queryWrapperArticleIds).stream()
+                    .map(ArticleTag::getArticleId).collect(Collectors.toList());
 
             if (!articleIds.isEmpty()) {
                 queryWrapper.in("id", articleIds);
@@ -608,7 +623,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     // 删除文章关联的数据（支持单个和批量）
     public void delArticleCorrelationData(Collection<Integer> ids) {
-        if (ids == null || ids.isEmpty()) return;
+        if (ids == null || ids.isEmpty())
+            return;
 
         // 删除绑定的分类
         QueryWrapper<ArticleCate> queryWrapperCate = new QueryWrapper<>();
@@ -627,13 +643,15 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     public void delArticleCorrelationData(Integer id) {
-        if (id == null) return;
+        if (id == null)
+            return;
         delArticleCorrelationData(Collections.singletonList(id));
     }
 
     @Override
     public void importArticle(MultipartFile[] list) throws IOException {
-        if (list == null || list.length == 0) throw new CustomException(400, "导入失败：文件列表为空");
+        if (list == null || list.length == 0)
+            throw new CustomException(400, "导入失败：文件列表为空");
 
         // 验证所有文件格式
         for (MultipartFile file : list) {
@@ -743,7 +761,6 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
                     }
                 }
             }
-
 
             // 将所有Markdown文件压缩为一个ZIP文件
             ByteArrayOutputStream zipOutputStream = new ByteArrayOutputStream();

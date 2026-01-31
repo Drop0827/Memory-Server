@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import jakarta.annotation.Resource;
-
 @Tag(name = "邮件管理")
 @RestController
 @RequestMapping("/email")
@@ -28,7 +26,7 @@ public class EmailController {
     @PostMapping("/dismiss")
     @Operation(summary = "驳回通知邮件")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 1)
-    public Result dismiss(@RequestBody DismissEmailDTO email) {
+    public Result<String> dismiss(@RequestBody DismissEmailDTO email) {
         // 处理邮件模板
         Context context = new Context();
         context.setVariable("type", email.getType());
@@ -46,7 +44,7 @@ public class EmailController {
     @PostMapping("/reply_wall")
     @Operation(summary = "回复留言")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 2)
-    public Result replyWall(@RequestBody WallEmailDTO email) {
+    public Result<String> replyWall(@RequestBody WallEmailDTO email) {
         // 处理邮件模板
         Context context = new Context();
         context.setVariable("recipient", email.getRecipient());

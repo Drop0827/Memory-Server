@@ -5,7 +5,10 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+import lombok.EqualsAndHashCode;
+
 @Data
+@EqualsAndHashCode(callSuper = false)
 @TableName("link")
 public class Link extends BaseModel {
     @Schema(description = "网站标题", example = "这是一个网站", requiredMode = Schema.RequiredMode.REQUIRED)

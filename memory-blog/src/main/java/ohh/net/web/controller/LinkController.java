@@ -37,7 +37,8 @@ public class LinkController {
     @NoTokenRequired
     @Operation(summary = "新增网站")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 1)
-    public Result<String> add(@RequestBody Link link, @RequestHeader(value = "Authorization", required = false) String token) throws Exception {
+    public Result<String> add(@RequestBody Link link,
+            @RequestHeader(value = "Authorization", required = false) String token) throws Exception {
         linkService.add(link, token);
         return Result.success();
     }
@@ -47,7 +48,8 @@ public class LinkController {
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 2)
     public Result<String> del(@PathVariable Integer id) {
         Link data = linkService.getById(id);
-        if (data == null) return Result.error("该数据不存在");
+        if (data == null)
+            return Result.error("该数据不存在");
         linkService.removeById(id);
         return Result.success();
     }
@@ -55,7 +57,7 @@ public class LinkController {
     @DeleteMapping("/batch")
     @Operation(summary = "批量删除网站")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 3)
-    public Result delBatch(@RequestBody List<Integer> ids) {
+    public Result<String> delBatch(@RequestBody List<Integer> ids) {
         linkService.removeByIds(ids);
         return Result.success();
     }
@@ -92,7 +94,7 @@ public class LinkController {
     @PostMapping("/paging")
     @Operation(summary = "分页查询网站列表")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 7)
-    public Result paging(@RequestBody LinkFilterVo filterVo, PageVo pageVo) {
+    public Result<Map<String, Object>> paging(@RequestBody LinkFilterVo filterVo, PageVo pageVo) {
         Page<Link> data = linkService.paging(filterVo, pageVo);
         Map<String, Object> result = Paging.filter(data);
         return Result.success(result);
@@ -110,10 +112,11 @@ public class LinkController {
     @PatchMapping("/audit/{id}")
     @Operation(summary = "审核指定网站")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 9)
-    public Result auditWeb(@PathVariable Integer id) {
+    public Result<String> auditWeb(@PathVariable Integer id) {
         Link data = linkService.getById(id);
 
-        if (data == null) throw new CustomException(400, "该网站不存在");
+        if (data == null)
+            throw new CustomException(400, "该网站不存在");
 
         data.setAuditStatus(1);
         linkService.updateById(data);

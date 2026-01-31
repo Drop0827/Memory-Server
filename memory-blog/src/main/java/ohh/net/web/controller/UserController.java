@@ -80,7 +80,7 @@ public class UserController {
     @PostMapping("/paging")
     @Operation(summary = "分页查询用户列表")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 7)
-    public Result paging(UserFilterVo filterVo, PageVo pageVo) {
+    public Result<Map<String, Object>> paging(UserFilterVo filterVo, PageVo pageVo) {
         Page<User> data = userService.paging(filterVo, pageVo);
         Map<String, Object> result = Paging.filter(data);
         return Result.success(result);
@@ -89,7 +89,7 @@ public class UserController {
     @PostMapping("/login")
     @Operation(summary = "用户登录")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 8)
-    public Result<Map> login(@RequestBody UserLoginDTO user) {
+    public Result<Map<String, Object>> login(@RequestBody UserLoginDTO user) {
         Map<String, Object> result = userService.login(user);
         return Result.success("登录成功", result);
     }
@@ -105,7 +105,7 @@ public class UserController {
     @GetMapping("/check")
     @Operation(summary = "校验当前用户Token是否有效")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 10)
-    public Result checkPrem(String token) {
+    public Result<String> checkPrem(String token) {
         userService.check(token);
         return Result.success();
     }

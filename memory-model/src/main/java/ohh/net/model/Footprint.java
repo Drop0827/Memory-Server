@@ -8,7 +8,10 @@ import lombok.Data;
 
 import java.util.List;
 
+import lombok.EqualsAndHashCode;
+
 @Data
+@EqualsAndHashCode(callSuper = false)
 @TableName(value = "footprint", autoResultMap = true)
 public class Footprint extends BaseModel {
     @Schema(description = "标题", example = "这是一个标题", requiredMode = Schema.RequiredMode.REQUIRED)

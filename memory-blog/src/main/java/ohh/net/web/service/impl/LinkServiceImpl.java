@@ -38,7 +38,8 @@ public class LinkServiceImpl extends ServiceImpl<LinkMapper, Link> implements Li
         if (token == null || token.isEmpty()) {
             // 添加之前先判断所选的网站类型是否为当前用户可选的
             Integer isAdmin = linkTypeMapper.selectById(link.getTypeId()).getIsAdmin();
-            if (isAdmin == 1) throw new CustomException(400, "该类型需要管理员权限才能添加");
+            if (isAdmin == 1)
+                throw new CustomException(400, "该类型需要管理员权限才能添加");
             linkMapper.insert(link);
 
             // 邮件提醒
@@ -57,7 +58,7 @@ public class LinkServiceImpl extends ServiceImpl<LinkMapper, Link> implements Li
         }
 
         // 判断权限
-        boolean isAdminPermissions = ohhUtils.isAdmin();
+        boolean isAdminPermissions = OhhUtils.isAdmin();
         // 如果是超级管理员在添加时候不需要审核，直接显示
         if (isAdminPermissions) {
             link.setAuditStatus(1);
@@ -93,7 +94,8 @@ public class LinkServiceImpl extends ServiceImpl<LinkMapper, Link> implements Li
             }
         }
 
-        list = list.stream().sorted((o1, o2) -> o2.getCreateTime().compareTo(o1.getCreateTime())).collect(Collectors.toList());
+        list = list.stream().sorted((o1, o2) -> o2.getCreateTime().compareTo(o1.getCreateTime()))
+                .collect(Collectors.toList());
 
         return list;
     }

@@ -2,7 +2,6 @@ package ohh.net.web.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -24,7 +23,8 @@ public class StatisController {
     /**
      * 统一的百度统计数据获取接口
      *
-     * @param type      统计类型：basic(基础数据), overview(概览趋势), new-visitor(新访客趋势), basic-overview(基础概览趋势)
+     * @param type      统计类型：basic(基础数据), overview(概览趋势), new-visitor(新访客趋势),
+     *                  basic-overview(基础概览趋势)
      * @param startDate 开始日期 (格式: 20240101)，可选，默认为当天
      * @param endDate   结束日期 (格式: 20240131)，可选，默认为当天
      */
@@ -34,8 +34,7 @@ public class StatisController {
     public Result<JsonNode> getStatisData(
             @Parameter(description = "统计类型：basic(基础数据), overview(概览趋势), new-visitor(新访客趋势), basic-overview(基础概览趋势)", required = true) @RequestParam String type,
             @Parameter(description = "开始日期，格式: 20240101，可选，默认为当天") @RequestParam(required = false) String startDate,
-            @Parameter(description = "结束日期，格式: 20240131，可选，默认为当天") @RequestParam(required = false) String endDate
-    ) {
+            @Parameter(description = "结束日期，格式: 20240131，可选，默认为当天") @RequestParam(required = false) String endDate) {
         try {
             JsonNode data = null;
             String successMsg = "";

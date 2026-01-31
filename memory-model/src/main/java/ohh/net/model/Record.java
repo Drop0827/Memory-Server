@@ -4,7 +4,10 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+import lombok.EqualsAndHashCode;
+
 @Data
+@EqualsAndHashCode(callSuper = false)
 @TableName("record")
 public class Record extends BaseModel {
     @Schema(description = "内容", example = "大前端永远滴神！", requiredMode = Schema.RequiredMode.REQUIRED)

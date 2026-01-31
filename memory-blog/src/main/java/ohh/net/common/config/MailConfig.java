@@ -1,8 +1,6 @@
 package ohh.net.common.config;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import ohh.net.model.EnvConfig;
-import ohh.net.web.mapper.EnvConfigMapper;
 import ohh.net.web.service.EnvConfigService;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
@@ -32,7 +30,7 @@ public class MailConfig {
         if (host == null || username == null) {
             throw new RuntimeException("邮箱主机或用户名不能为空");
         }
-        
+
         // QQ邮箱
         if (host.contains("qq.com") || username.contains("@qq.com")) {
             return "QQ";
@@ -44,8 +42,7 @@ public class MailConfig {
         // yeah邮箱(网易)
         else if (host.contains("yeah.net") || username.contains("@yeah.net")) {
             return "YEAH";
-        }
-        else {
+        } else {
             throw new RuntimeException("不支持的邮箱服务商！当前仅支持QQ邮箱(@qq.com)、163邮箱(@163.com)和yeah邮箱(@yeah.net)");
         }
     }
@@ -59,7 +56,7 @@ public class MailConfig {
         props.put("mail.smtp.timeout", 30000);
         props.put("mail.smtp.connectiontimeout", 15000);
         props.put("mail.smtp.writetimeout", 15000);
-        
+
         // 根据端口配置SSL/STARTTLS
         if (port == 465) {
             System.out.println("使用465端口，启用SSL连接");
@@ -74,7 +71,7 @@ public class MailConfig {
         } else {
             throw new RuntimeException("不支持的端口！建议使用465(SSL)或587(STARTTLS)端口");
         }
-        
+
         // 根据邮箱服务商配置特定属性
         switch (provider) {
             case "QQ":
@@ -89,7 +86,7 @@ public class MailConfig {
                     props.put("mail.smtp.socketFactory.port", 465);
                 }
                 break;
-                
+
             case "163":
                 System.out.println("配置163邮箱专用设置");
                 props.put("mail.smtp.ssl.protocols", "TLSv1.2");
@@ -102,7 +99,7 @@ public class MailConfig {
                     props.put("mail.smtp.socketFactory.port", 465);
                 }
                 break;
-                
+
             case "YEAH":
                 System.out.println("配置yeah邮箱专用设置");
                 props.put("mail.smtp.ssl.protocols", "TLSv1.2");
@@ -115,7 +112,7 @@ public class MailConfig {
                     props.put("mail.smtp.socketFactory.port", 465);
                 }
                 break;
-                
+
             default:
                 throw new RuntimeException("未知的邮箱服务商类型: " + provider);
         }
@@ -126,16 +123,16 @@ public class MailConfig {
     public JavaMailSender javaMailSender() {
         try {
             Map<String, Object> config = getEmailConfig();
-            
+
             String host = (String) config.get("host");
             Integer port = (Integer) config.get("port");
             String username = (String) config.get("username");
             String password = (String) config.get("password");
-            
+
             // 验证邮箱服务商
             String provider = getEmailProvider(host, username);
             System.out.println("检测到邮箱服务商: " + provider);
-            
+
             // 创建邮件发送器
             JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
             mailSender.setHost(host);
@@ -154,7 +151,7 @@ public class MailConfig {
             System.out.println("SSL启用: " + props.getProperty("mail.smtp.ssl.enable"));
             System.out.println("STARTTLS启用: " + props.getProperty("mail.smtp.starttls.enable"));
             System.out.println("========================");
-            
+
             return mailSender;
         } catch (Exception e) {
             System.err.println("创建邮件发送器失败: " + e.getMessage());

@@ -26,7 +26,8 @@ public class OssServiceImpl extends ServiceImpl<OssMapper, Oss> implements OssSe
     public void saveOss(Oss oss) {
         // 判断是否有重复
         Long count = this.lambdaQuery().eq(Oss::getPlatform, oss.getPlatform()).count();
-        if (count > 0) throw new CustomException("该平台已存在，请勿重复添加");
+        if (count > 0)
+            throw new CustomException("该平台已存在，请勿重复添加");
 
         if ("local".equals(oss.getPlatform())) {
             // 获取当前项目的路径
@@ -40,11 +41,14 @@ public class OssServiceImpl extends ServiceImpl<OssMapper, Oss> implements OssSe
     @Override
     public void delOss(Integer id) {
         Oss oss = this.getById(id);
-        if (oss == null) throw new CustomException("删除失败");
+        if (oss == null)
+            throw new CustomException("删除失败");
         // 如果是默认的平台，提示不可删除
-        if (oss.getPlatform().equals("local")) throw new CustomException("默认平台不可删除");
+        if (oss.getPlatform().equals("local"))
+            throw new CustomException("默认平台不可删除");
         boolean result = this.removeById(id);
-        if (result) OssUtils.removeStorage(OssUtils.getStorageList(), oss.getPlatform());
+        if (result)
+            OssUtils.removeStorage(OssUtils.getStorageList(), oss.getPlatform());
     }
 
     @Override
@@ -67,11 +71,13 @@ public class OssServiceImpl extends ServiceImpl<OssMapper, Oss> implements OssSe
     public void enable(Integer id) {
         // 先禁用所有的配置
         boolean temp1 = this.update(Wrappers.<Oss>update().lambda().set(Oss::getIsEnable, 0));
-        if (!temp1) throw new CustomException("操作失败");
+        if (!temp1)
+            throw new CustomException("操作失败");
 
         // 再启用制定的配置
         boolean temp2 = this.update(Wrappers.<Oss>update().lambda().set(Oss::getIsEnable, 1).eq(Oss::getId, id));
-        if (!temp2) throw new CustomException("启用失败");
+        if (!temp2)
+            throw new CustomException("启用失败");
 
         Oss oss = this.getById(id);
         OssUtils.registerPlatform(oss);
@@ -84,9 +90,9 @@ public class OssServiceImpl extends ServiceImpl<OssMapper, Oss> implements OssSe
     }
 
     @Override
-    public List<Map> getPlatform() {
-        List<Map> result = new ArrayList<>();
-        String[] list = {"huawei", "aliyun", "qiniu", "tencent", "minio"};
+    public List<Map<String, String>> getPlatform() {
+        List<Map<String, String>> result = new ArrayList<>();
+        String[] list = { "huawei", "aliyun", "qiniu", "tencent", "minio" };
 
         for (String item : list) {
             Map<String, String> data = new HashMap<>();
@@ -108,7 +114,7 @@ public class OssServiceImpl extends ServiceImpl<OssMapper, Oss> implements OssSe
             oss.setEndPoint(projectPath + "/");
 
             // 每次修改时候，如果路径不包含static则追加上
-            if(!oss.getDomain().contains("static")){
+            if (!oss.getDomain().contains("static")) {
                 oss.setDomain(oss.getDomain() + "static/");
             }
         }
@@ -124,7 +130,8 @@ public class OssServiceImpl extends ServiceImpl<OssMapper, Oss> implements OssSe
 
     // 对数据中间10位数进行脱敏
     public String maskMiddleTen(String input) {
-        if (input == null || input.length() <= 10) return input;
+        if (input == null || input.length() <= 10)
+            return input;
 
         int start = (input.length() - 10) / 2;
         int end = start + 10;

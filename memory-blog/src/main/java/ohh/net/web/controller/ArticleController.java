@@ -59,7 +59,7 @@ public class ArticleController {
     @DeleteMapping("/batch")
     @Operation(summary = "批量删除文章")
     @ApiOperationSupport(author = "OHH | 2720751424@qq.com", order = 4)
-    public Result batchDel(@RequestBody List<Integer> ids) {
+    public Result<String> batchDel(@RequestBody List<Integer> ids) {
         articleService.delBatch(ids);
         return Result.success();
     }
@@ -87,7 +87,8 @@ public class ArticleController {
     @PostMapping("/list")
     @Operation(summary = "获取文章列表")
     @ApiOperationSupport(author = "OHH | 2720751424@qq.com", order = 7)
-    public Result<List<Article>> list(@RequestBody ArticleFillterVo filterVo, @RequestHeader(value = "Authorization", required = false) String token) {
+    public Result<List<Article>> list(@RequestBody ArticleFillterVo filterVo,
+            @RequestHeader(value = "Authorization", required = false) String token) {
         List<Article> data = articleService.list(filterVo, token);
         return Result.success(data);
     }
@@ -97,7 +98,8 @@ public class ArticleController {
     @PostMapping("/paging")
     @Operation(summary = "分页查询文章列表")
     @ApiOperationSupport(author = "OHH | 2720751424@qq.com", order = 8)
-    public Result paging(@RequestBody ArticleFillterVo filterVo, PageVo pageVo, @RequestHeader(value = "Authorization", required = false) String token) {
+    public Result<Map<String, Object>> paging(@RequestBody ArticleFillterVo filterVo, PageVo pageVo,
+            @RequestHeader(value = "Authorization", required = false) String token) {
         Page<Article> list = articleService.paging(filterVo, pageVo, token);
         Map<String, Object> result = Paging.filter(list);
         return Result.success(result);
@@ -107,7 +109,7 @@ public class ArticleController {
     @GetMapping("/cate/{cate_id}")
     @Operation(summary = "获取指定分类的文章列表")
     @ApiOperationSupport(author = "OHH | 2720751424@qq.com", order = 9)
-    public Result getCateArticleList(@PathVariable Integer cate_id, PageVo pageVo) {
+    public Result<Map<String, Object>> getCateArticleList(@PathVariable Integer cate_id, PageVo pageVo) {
         Page<Article> list = articleService.getCateArticleList(cate_id, pageVo);
         Map<String, Object> result = Paging.filter(list);
         return Result.success(result);
@@ -117,7 +119,7 @@ public class ArticleController {
     @GetMapping("/tag/{tag_id}")
     @Operation(summary = "获取指定标签的文章列表")
     @ApiOperationSupport(author = "OHH | 2720751424@qq.com", order = 10)
-    public Result getTagArticleList(@PathVariable Integer tag_id, PageVo pageVo) {
+    public Result<Map<String, Object>> getTagArticleList(@PathVariable Integer tag_id, PageVo pageVo) {
         Page<Article> list = articleService.getTagArticleList(tag_id, pageVo);
         Map<String, Object> result = Paging.filter(list);
         return Result.success(result);
@@ -127,7 +129,8 @@ public class ArticleController {
     @GetMapping("/hot")
     @Operation(summary = "获取热门文章数据")
     @ApiOperationSupport(author = "OHH | 2720751424@qq.com", order = 12)
-    public Result<List<Article>> getRecommendedArticles(@Parameter(description = "默认浏览量最高的5篇文章") @RequestParam(defaultValue = "5") Integer count) {
+    public Result<List<Article>> getRecommendedArticles(
+            @Parameter(description = "默认浏览量最高的5篇文章") @RequestParam(defaultValue = "5") Integer count) {
         List<Article> data = articleService.getRecommendedArticles(count);
         return Result.success(data);
     }
@@ -136,7 +139,8 @@ public class ArticleController {
     @GetMapping("/random")
     @Operation(summary = "随机获取文章数据")
     @ApiOperationSupport(author = "OHH | 2720751424@qq.com", order = 11)
-    public Result<List<Article>> getRandomArticles(@Parameter(description = "默认随机获取5篇文章") @RequestParam(defaultValue = "5") Integer count) {
+    public Result<List<Article>> getRandomArticles(
+            @Parameter(description = "默认随机获取5篇文章") @RequestParam(defaultValue = "5") Integer count) {
         List<Article> data = articleService.getRandomArticles(count);
         return Result.success(data);
     }

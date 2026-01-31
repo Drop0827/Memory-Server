@@ -1,11 +1,11 @@
 package ohh.net.web.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
-import ohh.net.model.PageConfig;
 import ohh.net.model.WebConfig;
 
 import java.util.List;
 import java.util.Map;
+
+import com.baomidou.mybatisplus.extension.service.IService;
 
 public interface WebConfigService extends IService<WebConfig> {
     /**

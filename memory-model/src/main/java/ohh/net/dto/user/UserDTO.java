@@ -4,7 +4,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import ohh.net.model.BaseModel;
 import lombok.Data;
 
+import lombok.EqualsAndHashCode;
+
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class UserDTO extends BaseModel {
     @Schema(description = "用户账号", example = "liuyuyang", requiredMode = Schema.RequiredMode.REQUIRED)
     private String username;

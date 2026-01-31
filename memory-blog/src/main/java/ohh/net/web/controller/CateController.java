@@ -49,10 +49,11 @@ public class CateController {
     @DeleteMapping("/batch")
     @Operation(summary = "批量删除分类")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 3)
-    public Result batchDel(@RequestBody List<Integer> ids) {
+    public Result<String> batchDel(@RequestBody List<Integer> ids) {
         for (Integer id : ids) {
             boolean e = cateService.isExistTwoCate(id);
-            if (!e) return Result.error();
+            if (!e)
+                return Result.error();
             cateService.removeById(id);
         }
 
@@ -82,7 +83,8 @@ public class CateController {
     @PostMapping("/list")
     @Operation(summary = "获取分类列表")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 6)
-    public Result<List<Cate>> list(@Parameter(description = "默认为tree树性结构，设置为list表示列表结构") @RequestParam(defaultValue = "recursion") String pattern) {
+    public Result<List<Cate>> list(
+            @Parameter(description = "默认为tree树性结构，设置为list表示列表结构") @RequestParam(defaultValue = "recursion") String pattern) {
         List<Cate> data = cateService.list(pattern);
         return Result.success(data);
     }
@@ -92,7 +94,8 @@ public class CateController {
     @PostMapping("/paging")
     @Operation(summary = "分页查询分类列表")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 7)
-    public Result paging(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "5") Integer size) {
+    public Result<Map<String, Object>> paging(@RequestParam(defaultValue = "1") Integer page,
+            @RequestParam(defaultValue = "5") Integer size) {
         Page<Cate> data = cateService.paging(page, size);
         Map<String, Object> result = Paging.filter(data);
         return Result.success(result);

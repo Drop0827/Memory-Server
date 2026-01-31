@@ -75,7 +75,7 @@ public class RecordController {
     @PostMapping("/paging")
     @Operation(summary = "分页查询说说列表")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 7)
-    public Result paging(@RequestBody FilterVo filterVo, PageVo pageVo) {
+    public Result<Map<String, Object>> paging(@RequestBody FilterVo filterVo, PageVo pageVo) {
         Page<Record> data = recordService.paging(filterVo, pageVo);
         Map<String, Object> result = Paging.filter(data);
         return Result.success(result);

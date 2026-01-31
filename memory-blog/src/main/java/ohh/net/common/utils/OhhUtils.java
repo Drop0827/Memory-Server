@@ -16,7 +16,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Map;
+
 import java.util.Objects;
 
 @Component
@@ -56,7 +56,8 @@ public class OhhUtils {
     // 鉴权：判断是否为超级管理员
     public static boolean isAdmin(String token) {
         if (token != null) {
-            if (token.startsWith("Bearer ")) token = token.substring(7);
+            if (token.startsWith("Bearer "))
+                token = token.substring(7);
             Claims claims = JwtUtils.parseJWT(token);
             return claims != null;
         }
@@ -107,7 +108,8 @@ public class OhhUtils {
     public boolean check(String token) {
         try {
             if (token != null) {
-                if (token.startsWith("Bearer ")) token = token.substring(7);
+                if (token.startsWith("Bearer "))
+                    token = token.substring(7);
 
                 LambdaQueryWrapper<UserToken> userTokenLambdaQueryWrapper = new LambdaQueryWrapper<>();
                 userTokenLambdaQueryWrapper.eq(UserToken::getToken, token);
@@ -115,7 +117,7 @@ public class OhhUtils {
 
                 // 如果跟之前的token相匹配则进一步判断token是否有效
                 if (userTokens != null && !userTokens.isEmpty()) {
-                    Claims claims = JwtUtils.parseJWT(token);
+                    JwtUtils.parseJWT(token);
                     return true;
                 } else {
                     return false;

@@ -1,7 +1,7 @@
 package ohh.net.common.interceptor;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import io.jsonwebtoken.Claims;
+
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -93,7 +93,7 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor {
 
             // 如果跟之前的token相匹配则进一步判断token是否有效
             if (userTokens != null && !userTokens.isEmpty()) {
-                Claims claims = JwtUtils.parseJWT(token);
+                JwtUtils.parseJWT(token);
                 return true;
             } else {
                 throw new CustomException(401, "该账号已在另一台设备登录");

@@ -34,8 +34,10 @@ public class OssController {
     @ApiOperationSupport(author = "laifeng", order = 2)
     public Result<String> del(@PathVariable Integer id) {
         Oss oss = ossService.getById(id);
-        if (oss == null) return Result.error("删除oss配置失败：该配置不存在");
-        if (oss.getIsEnable() == 1) return Result.error("删除oss配置失败：该配置正在使用中");
+        if (oss == null)
+            return Result.error("删除oss配置失败：该配置不存在");
+        if (oss.getIsEnable() == 1)
+            return Result.error("删除oss配置失败：该配置正在使用中");
         ossService.delOss(id);
         return Result.success();
     }
@@ -75,7 +77,7 @@ public class OssController {
     @PatchMapping("/enable/{id}")
     @Operation(summary = "启用oss配置")
     @ApiOperationSupport(author = "laifeng", order = 6)
-    public Result enable(@PathVariable Integer id) {
+    public Result<String> enable(@PathVariable Integer id) {
         ossService.enable(id);
         return Result.success();
     }
@@ -90,7 +92,7 @@ public class OssController {
     @GetMapping("/platform")
     @Operation(summary = "获取目前支持的oss平台")
     @ApiOperationSupport(author = "宇阳", order = 9)
-    public Result<List<Map>> getPlatform() {
+    public Result<List<Map<String, String>>> getPlatform() {
         return Result.success(ossService.getPlatform());
     }
 }

@@ -40,8 +40,10 @@ public class AssistantController {
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 2)
     public Result<String> del(@PathVariable Integer id) {
         Assistant data = assistantService.getById(id);
-        if (data == null) return Result.error("该助手不存在");
-        if (data.getIsDefault() == 1) return Result.error("无法删除默认助手，请更换后重试");
+        if (data == null)
+            return Result.error("该助手不存在");
+        if (data.getIsDefault() == 1)
+            return Result.error("无法删除默认助手，请更换后重试");
 
         assistantService.removeById(id);
         return Result.success();
@@ -50,7 +52,7 @@ public class AssistantController {
     @DeleteMapping("/batch")
     @Operation(summary = "批量删除助手")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 3)
-    public Result batchDel(@RequestBody List<Integer> ids) {
+    public Result<String> batchDel(@RequestBody List<Integer> ids) {
         assistantService.removeByIds(ids);
         return Result.success();
     }
@@ -84,7 +86,8 @@ public class AssistantController {
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 7)
     public Result<String> selectDefault(@PathVariable Integer id) {
         Assistant assistant = assistantService.getById(id);
-        if (assistant == null) return Result.error("暂无该助手");
+        if (assistant == null)
+            return Result.error("暂无该助手");
 
         // 将之前的都设置为 0 表示未选中
         assistantService.lambdaUpdate()

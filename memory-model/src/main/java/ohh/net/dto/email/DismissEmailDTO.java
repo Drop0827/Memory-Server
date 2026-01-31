@@ -3,7 +3,10 @@ package ohh.net.dto.email;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+import lombok.EqualsAndHashCode;
+
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class DismissEmailDTO extends EmailDTO {
     @Schema(description = "邮件标题", example = "驳回通知", requiredMode = Schema.RequiredMode.REQUIRED)
     private String subject;

@@ -4,7 +4,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import ohh.net.vo.FilterVo;
 import lombok.Data;
 
+import lombok.EqualsAndHashCode;
+
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class CommentFilterVo extends FilterVo {
     @Schema(description = "默认为树形结构，如果设置了list模式，则查询列表结构")
     private String pattern;

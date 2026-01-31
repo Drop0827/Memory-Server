@@ -1,16 +1,13 @@
 package ohh.net.common.utils;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import jakarta.annotation.Resource;
 import ohh.net.model.EnvConfig;
-import ohh.net.web.mapper.EnvConfigMapper;
 import ohh.net.web.service.EnvConfigService;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
-import jakarta.annotation.Resource;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import java.util.Map;

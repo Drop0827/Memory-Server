@@ -44,7 +44,8 @@ public class WallController {
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 2)
     public Result<String> del(@PathVariable Integer id) {
         Wall data = wallService.getById(id);
-        if (data == null) return Result.error("删除留言失败：该留言不存在");
+        if (data == null)
+            return Result.error("删除留言失败：该留言不存在");
         wallService.removeById(id);
         return Result.success();
     }
@@ -52,7 +53,7 @@ public class WallController {
     @DeleteMapping("/batch")
     @Operation(summary = "批量删除留言")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 3)
-    public Result batchDel(@RequestBody List<Integer> ids) {
+    public Result<String> batchDel(@RequestBody List<Integer> ids) {
         wallService.removeByIds(ids);
         return Result.success();
     }
@@ -89,7 +90,7 @@ public class WallController {
     @PostMapping("/paging")
     @Operation(summary = "分页查询留言列表")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 7)
-    public Result paging(@RequestBody WallFilterVo filterVo, PageVo pageVo) {
+    public Result<Map<String, Object>> paging(@RequestBody WallFilterVo filterVo, PageVo pageVo) {
         Page<Wall> list = wallService.paging(filterVo, pageVo);
         Map<String, Object> result = Paging.filter(list);
         return Result.success(result);
@@ -100,7 +101,7 @@ public class WallController {
     @PostMapping("/cate/{cateId}")
     @Operation(summary = "获取指定分类中所有留言")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 8)
-    public Result getCateWallList(@PathVariable Integer cateId, PageVo pageVo) {
+    public Result<Map<String, Object>> getCateWallList(@PathVariable Integer cateId, PageVo pageVo) {
         Page<Wall> list = wallService.getCateWallList(cateId, pageVo);
         Map<String, Object> result = Paging.filter(list);
         return Result.success(result);
@@ -110,7 +111,7 @@ public class WallController {
     @GetMapping("/cate")
     @Operation(summary = "获取留言分类列表")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 9)
-    public Result getCateList() {
+    public Result<List<WallCate>> getCateList() {
         List<WallCate> list = wallService.getCateList();
         return Result.success(list);
     }
@@ -118,10 +119,11 @@ public class WallController {
     @PatchMapping("/audit/{id}")
     @Operation(summary = "审核指定留言")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 10)
-    public Result auditWall(@PathVariable Integer id) {
+    public Result<String> auditWall(@PathVariable Integer id) {
         Wall data = wallService.getById(id);
 
-        if (data == null) throw new CustomException(400, "该留言不存在");
+        if (data == null)
+            throw new CustomException(400, "该留言不存在");
 
         data.setAuditStatus(1);
         wallService.updateById(data);
@@ -131,7 +133,7 @@ public class WallController {
     @PatchMapping("/choice/{id}")
     @Operation(summary = "设置与取消精选留言")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 11)
-    public Result updateChoice(@PathVariable Integer id) {
+    public Result<String> updateChoice(@PathVariable Integer id) {
         wallService.updateChoice(id);
         return Result.success();
     }

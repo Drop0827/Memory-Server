@@ -1,7 +1,6 @@
 package ohh.net.web.controller;
 
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -35,7 +34,8 @@ public class PageConfigController {
     @Operation(summary = "根据名称获取页面配置")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 2)
     @GetMapping("/name/{name}")
-    public Result<PageConfig> getByName(@Parameter(description = "配置名称", required = true, example = "home_page") @PathVariable String name) {
+    public Result<PageConfig> getByName(
+            @Parameter(description = "配置名称", required = true, example = "home_page") @PathVariable String name) {
         PageConfig pageConfig = pageConfigService.getByName(name);
         return pageConfig != null ? Result.success("获取成功", pageConfig) : Result.error("配置不存在");
     }
@@ -44,7 +44,8 @@ public class PageConfigController {
     @Operation(summary = "根据ID获取页面配置")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 3)
     @GetMapping("/{id}")
-    public Result<PageConfig> getById(@Parameter(description = "页面配置ID", required = true, example = "1") @PathVariable Integer id) {
+    public Result<PageConfig> getById(
+            @Parameter(description = "页面配置ID", required = true, example = "1") @PathVariable Integer id) {
         PageConfig pageConfig = pageConfigService.getById(id);
         return pageConfig != null ? Result.success("获取成功", pageConfig) : Result.error("配置不存在");
     }
@@ -59,4 +60,4 @@ public class PageConfigController {
         boolean success = pageConfigService.updateJsonValue(id, jsonValue);
         return success ? Result.success() : Result.error();
     }
-} 
+}

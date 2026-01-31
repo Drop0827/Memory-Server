@@ -44,7 +44,8 @@ public class SwiperController {
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 2)
     public Result<String> del(@PathVariable Integer id) {
         Swiper data = swiperService.getById(id);
-        if (data == null) return Result.error("该数据不存在");
+        if (data == null)
+            return Result.error("该数据不存在");
 
         Boolean res = swiperService.removeById(id);
 
@@ -54,7 +55,7 @@ public class SwiperController {
     @DeleteMapping("/batch")
     @Operation(summary = "批量删除轮播图")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 3)
-    public Result batchDel(@RequestBody List<Integer> ids) {
+    public Result<String> batchDel(@RequestBody List<Integer> ids) {
         Boolean res = swiperService.removeByIds(ids);
 
         return res ? Result.success() : Result.error();
@@ -96,7 +97,8 @@ public class SwiperController {
     @PostMapping("/paging")
     @Operation(summary = "分页查询轮播图列表")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 7)
-    public Result paging(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "5") Integer size) {
+    public Result<Map<String, Object>> paging(@RequestParam(defaultValue = "1") Integer page,
+            @RequestParam(defaultValue = "5") Integer size) {
         Page<Swiper> data = swiperService.list(page, size);
         Map<String, Object> result = Paging.filter(data);
         return Result.success(result);

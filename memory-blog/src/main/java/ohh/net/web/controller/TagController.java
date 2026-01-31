@@ -17,7 +17,6 @@ import jakarta.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
-
 @io.swagger.v3.oas.annotations.tags.Tag(name = "标签管理")
 @RestController
 @RequestMapping("/tag")
@@ -39,7 +38,8 @@ public class TagController {
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 2)
     public Result<String> del(@PathVariable Integer id) {
         Tag data = tagService.getById(id);
-        if (data == null) return Result.error("该数据不存在");
+        if (data == null)
+            return Result.error("该数据不存在");
         tagService.removeById(id);
         return Result.success();
     }
@@ -47,7 +47,7 @@ public class TagController {
     @DeleteMapping("/batch")
     @Operation(summary = "批量删除标签")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 3)
-    public Result batchDel(@RequestBody List<Integer> ids) {
+    public Result<String> batchDel(@RequestBody List<Integer> ids) {
         tagService.removeByIds(ids);
         return Result.success();
     }
@@ -84,7 +84,8 @@ public class TagController {
     @PostMapping("/paging")
     @Operation(summary = "分页查询标签列表")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 7)
-    public Result paging(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "5") Integer size) {
+    public Result<Map<String, Object>> paging(@RequestParam(defaultValue = "1") Integer page,
+            @RequestParam(defaultValue = "5") Integer size) {
         Page<Tag> data = tagService.list(page, size);
         Map<String, Object> result = Paging.filter(data);
         return Result.success(result);
@@ -94,7 +95,7 @@ public class TagController {
     @GetMapping("/article/count")
     @Operation(summary = "统计每个标签下的文章数量")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 8)
-    public Result staticArticleCount() {
+    public Result<List<Tag>> staticArticleCount() {
         List<Tag> list = tagService.staticArticleCount();
         return Result.success(list);
     }

@@ -42,7 +42,7 @@ public class FootprintController {
     @DeleteMapping("/batch")
     @Operation(summary = "批量删除足迹")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 3)
-    public Result batchDel(@RequestBody List<Integer> ids) {
+    public Result<String> batchDel(@RequestBody List<Integer> ids) {
         footprintService.removeByIds(ids);
         return Result.success();
     }
