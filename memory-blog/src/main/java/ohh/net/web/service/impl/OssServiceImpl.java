@@ -22,6 +22,14 @@ public class OssServiceImpl extends ServiceImpl<OssMapper, Oss> implements OssSe
     @Resource
     private OssMapper ossMapper;
 
+    @jakarta.annotation.PostConstruct
+    public void init() {
+        Oss oss = this.getEnableOss();
+        if (oss != null) {
+            OssUtils.registerPlatform(oss);
+        }
+    }
+
     @Override
     public void saveOss(Oss oss) {
         // 判断是否有重复

@@ -83,6 +83,23 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor {
                 return true;
             }
 
+            // 校验令牌是否存在（排除GET请求且无Token的情况）
+            if (token == null) {
+                // 如果是GET请求（上面已经处理过有token的情况，这里是无token情况），且未加@NoTokenRequired（如果有注解在L68已放行）
+                // Wait, L77 says: If GET, if token!=null verify, else return true.
+                // So if GET and token==null, it returns true at L83.
+                // So execution only reaches here if NOT GET, or (GET and token!=null which is
+                // handled).
+                // Actually L77 returns true. So L86 is reachable only if NOT GET.
+                // If NOT GET and token is null -> we should throw error.
+                throw new CustomException(401, "未登录");
+            }
+
+            // 如果没有Token，直接抛出未登录异常
+            if (token == null || token.isEmpty()) {
+                throw new CustomException(401, "未登录，请先登录");
+            }
+
             // 处理Authorization的Bearer
             if (token.startsWith("Bearer "))
                 token = token.substring(7);
