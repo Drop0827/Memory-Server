@@ -138,7 +138,8 @@ public class CateServiceImpl extends ServiceImpl<CateMapper, Cate> implements Ca
     public List<Cate> buildCateTree(List<Cate> list, Integer lever) {
         List<Cate> children = new ArrayList<>();
         for (Cate cate : list) {
-            if (cate.getLevel().equals(lever)) {
+            Integer level = cate.getLevel() == null ? 0 : cate.getLevel();
+            if (Objects.equals(level, lever)) {
                 cate.setChildren(buildCateTree(list, cate.getId()));
                 children.add(cate);
             }

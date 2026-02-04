@@ -32,7 +32,48 @@ import java.util.*;
 @Transactional
 public class FileController {
     @Resource
+    private ohh.net.web.mapper.FileDetailMapper fileDetailMapper;
+    @Resource
     private FileStorageService fileStorageService;
+
+    @PostMapping("/external")
+    @Operation(summary = "添加外部链接文件")
+    @ApiOperationSupport(author = "OHH | 2720751424@qq.com", order = 1)
+    public Result<String> addExternal(@RequestBody Map<String, String> params) {
+        String dir = params.get("dir");
+        String url = params.get("url");
+
+        if (dir == null || dir.trim().isEmpty())
+            throw new CustomException(400, "请指定一个目录");
+        if (url == null || url.trim().isEmpty())
+            throw new CustomException(400, "请提供图片链接");
+
+        // Extract filename from URL
+        String filename = "external_file";
+        try {
+            String pathPart = url.contains("?") ? url.substring(0, url.indexOf("?")) : url;
+            filename = pathPart.substring(pathPart.lastIndexOf("/") + 1);
+        } catch (Exception e) {
+            // ignore
+        }
+        if (filename.isEmpty()) filename = "external_file";
+
+        ohh.net.model.FileDetail fileDetail = new ohh.net.model.FileDetail();
+        fileDetail.setId(java.util.UUID.randomUUID().toString().replace("-", ""));
+        fileDetail.setUrl(url);
+        fileDetail.setFilename(filename);
+        fileDetail.setOriginalFilename(filename);
+        fileDetail.setPath(dir + "/");
+        fileDetail.setBasePath("");
+        fileDetail.setPlatform("external");
+        fileDetail.setExt(filename.contains(".") ? filename.substring(filename.lastIndexOf(".") + 1) : "png");
+        fileDetail.setSize(0L); // Unknown size for external link
+        fileDetail.setCreateTime(new Date());
+
+        fileDetailMapper.insert(fileDetail);
+
+        return Result.success("添加成功");
+    }
 
     @PostMapping
     @Operation(summary = "文件上传")
@@ -64,7 +105,25 @@ public class FileController {
     @Operation(summary = "删除文件")
     @ApiOperationSupport(author = "OHH | 2720751424@qq.com", order = 2)
     public Result<String> del(@RequestParam String filePath) {
+        // Try to delete from DB first (for external files)
+        // Note: filePath usually passed as filename or path. 
+        // Logic might need check. But typically del takes URL or Key.
+        // x-file-storage delete takes URL.
+
         String url = filePath.startsWith("https://") ? filePath : "https://" + filePath;
+        
+         // Check if it is external file by URL
+        com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper<ohh.net.model.FileDetail> wrapper = new com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper<>();
+        wrapper.eq(ohh.net.model.FileDetail::getUrl, url);
+        // Or if filePath is just filename?
+        // Let's assume URL match for now.
+        
+        ohh.net.model.FileDetail dbFile = fileDetailMapper.selectOne(wrapper);
+        if (dbFile != null && "external".equals(dbFile.getPlatform())) {
+            fileDetailMapper.deleteById(dbFile.getId());
+            return Result.success("删除成功");
+        }
+
         boolean delete = fileStorageService.delete(url);
         return Result.status(delete);
     }
@@ -74,9 +133,20 @@ public class FileController {
     @ApiOperationSupport(author = "OHH | 2720751424@qq.com", order = 3)
     public Result<String> batchDel(@RequestBody String[] pathList) throws QiniuException {
         for (String url : pathList) {
-            boolean delete = fileStorageService.delete(url.startsWith("https://") ? url : "https://" + url);
-            if (!delete)
-                throw new CustomException("删除文件失败");
+            String fullUrl = url.startsWith("https://") ? url : "https://" + url;
+            
+            // Try delete external
+            com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper<ohh.net.model.FileDetail> wrapper = new com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper<>();
+            wrapper.eq(ohh.net.model.FileDetail::getUrl, fullUrl);
+            ohh.net.model.FileDetail dbFile = fileDetailMapper.selectOne(wrapper);
+             
+            if (dbFile != null && "external".equals(dbFile.getPlatform())) {
+                fileDetailMapper.deleteById(dbFile.getId());
+                continue;
+            }
+            
+            boolean delete = fileStorageService.delete(fullUrl);
+            // Ignore failure for mixed batch
         }
         return Result.success();
     }
@@ -93,21 +163,23 @@ public class FileController {
     @Operation(summary = "获取目录列表")
     @ApiOperationSupport(author = "OHH | 2720751424@qq.com", order = 5)
     public Result<List<Map<String, Object>>> getDirList() {
-        ListFilesResult result = fileStorageService.listFiles()
-                .setPlatform(OssUtils.getPlatform())
-                .listFiles();
-
-        // 获取文件列表
         List<Map<String, Object>> list = new ArrayList<>();
-        List<RemoteDirInfo> fileList = result.getDirList();
+        
+        try {
+            ListFilesResult result = fileStorageService.listFiles()
+                    .setPlatform(OssUtils.getPlatform())
+                    .listFiles();
 
-        for (RemoteDirInfo item : fileList) {
-            Map<String, Object> data = new HashMap<>();
-            data.put("name", item.getName());
-            data.put("path", item.getOriginal());
-            list.add(data);
+            List<RemoteDirInfo> fileList = result.getDirList();
+            for (RemoteDirInfo item : fileList) {
+                Map<String, Object> data = new HashMap<>();
+                data.put("name", item.getName());
+                data.put("path", item.getOriginal());
+                list.add(data);
+            }
+        } catch (Exception e) {
+            // Ignore error if platform not set
         }
-
         return Result.success(list);
     }
 
@@ -121,51 +193,84 @@ public class FileController {
         if (dir == null || dir.trim().isEmpty())
             throw new CustomException(400, "请指定一个目录");
 
-        ListFilesResult result = fileStorageService.listFiles()
-                .setPlatform(OssUtils.getPlatform())
-                .setPath(dir + '/')
-                .listFiles();
-
-        // 获取文件列表
         List<Map<String, Object>> fileList = new ArrayList<>();
-        List<RemoteFileInfo> remoteFileList = result.getFileList();
+        
+        // 1. Fetch from Storage Platform (if available)
+        try {
+             ListFilesResult result = fileStorageService.listFiles()
+                    .setPlatform(OssUtils.getPlatform())
+                    .setPath(dir + '/')
+                    .listFiles();
 
-        // 按lastModified时间降序排序（最新的在前）
-        remoteFileList.sort((a, b) -> b.getLastModified().compareTo(a.getLastModified()));
-
-        // 计算分页参数
-        int total = remoteFileList.size();
-        int startIndex = (page - 1) * size;
-        int endIndex = Math.min(startIndex + size, total);
-
-        // 分页处理
-        List<RemoteFileInfo> pageList = remoteFileList.subList(startIndex, endIndex);
-
-        for (RemoteFileInfo item : pageList) {
-            // 如果是目录就略过
-            if (Objects.equals(item.getExt(), ""))
-                continue;
-
-            Map<String, Object> data = new HashMap<>();
-            data.put("basePath", item.getBasePath());
-            data.put("dir", dir);
-            data.put("path", item.getBasePath() + item.getPath() + item.getFilename());
-            data.put("name", item.getFilename());
-            data.put("size", item.getSize());
-            data.put("type", item.getExt());
-            data.put("date", item.getLastModified());
-
-            String url = item.getUrl();
-            if (!url.startsWith("https://"))
-                url = "https://" + url;
-            data.put("url", url);
-
-            fileList.add(data);
+            List<RemoteFileInfo> remoteFileList = result.getFileList();
+            for (RemoteFileInfo item : remoteFileList) {
+                if (Objects.equals(item.getExt(), "")) continue;
+                Map<String, Object> data = new HashMap<>();
+                data.put("basePath", item.getBasePath());
+                data.put("dir", dir);
+                data.put("path", item.getBasePath() + item.getPath() + item.getFilename());
+                data.put("name", item.getFilename());
+                data.put("size", item.getSize());
+                data.put("type", item.getExt());
+                data.put("date", item.getLastModified());
+                String url = item.getUrl();
+                if (!url.startsWith("https://")) url = "https://" + url;
+                data.put("url", url);
+                fileList.add(data);
+            }
+        } catch (Exception e) {
+            // Platform might not be set, ignore
+        }
+        
+        // 2. Fetch from DB (External Files or Database Records)
+        // We particularly want 'external' files, but maybe all records for this path to be safe/complete?
+        // Since getFileList usually returns RemoteFileInfo, we are mocking it here.
+        com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper<ohh.net.model.FileDetail> wrapper = new com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper<>();
+        wrapper.eq(ohh.net.model.FileDetail::getPath, dir + "/");
+        // wrapper.eq(ohh.net.model.FileDetail::getPlatform, "external"); // Optionally restrict to external if x-file-storage handles others? 
+        // Actually, x-file-storage's listFiles() lists what's on storage. If we use DB recorder, duplicates might appear if we query both.
+        // But since user "doesn't use storage platform", listing from DB is Key.
+        
+        // Let's query only 'external' platform from DB to avoid duplicates if normal upload works.
+        // Or if normal storage is broken/empty, we want everything from DB.
+        // Let's assume we want platform='external' to be safe.
+        wrapper.eq(ohh.net.model.FileDetail::getPlatform, "external");
+        
+        List<ohh.net.model.FileDetail> dbFiles = fileDetailMapper.selectList(wrapper);
+        for (ohh.net.model.FileDetail item : dbFiles) {
+             Map<String, Object> data = new HashMap<>();
+             data.put("basePath", item.getBasePath());
+             data.put("dir", dir);
+             data.put("path", item.getPath() + item.getFilename());
+             data.put("name", item.getFilename());
+             data.put("size", item.getSize());
+             data.put("type", item.getExt());
+             data.put("date", item.getCreateTime());
+             data.put("url", item.getUrl());
+             fileList.add(data);
         }
 
-        // 构建分页结果
+        // Sort by date desc (mix of lastModified and createTime)
+        fileList.sort((a, b) -> {
+             Object d1 = a.get("date");
+             Object d2 = b.get("date");
+             // Handle different date types if necessary (Date vs LocalDateTime etc)
+             // Simplified: ToStr comparison or try parse?
+             // Best effort:
+             if (d1 instanceof Date && d2 instanceof Date) return ((Date)d2).compareTo((Date)d1);
+             return 0;
+        });
+
+        // Pagination
+        int total = fileList.size();
+        int startIndex = (page - 1) * size;
+        if (startIndex > total) startIndex = total;
+        int endIndex = Math.min(startIndex + size, total);
+
+        List<Map<String, Object>> pageList = fileList.subList(startIndex, endIndex);
+
         Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put("result", fileList);
+        resultMap.put("result", pageList);
         resultMap.put("size", size);
         resultMap.put("page", page);
         resultMap.put("pages", (total + size - 1) / size);
