@@ -31,6 +31,10 @@ public class RecordController {
     @Operation(summary = "新增说说")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 1)
     public Result<String> add(@RequestBody Record record) {
+        // NOTE: 数据库 images 字段为 JSON 类型，空字符串不是有效的 JSON，需要转为空数组
+        if (record.getImages() == null || record.getImages().isEmpty()) {
+            record.setImages("[]");
+        }
         recordService.save(record);
         return Result.success();
     }
@@ -47,6 +51,10 @@ public class RecordController {
     @Operation(summary = "编辑说说")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 4)
     public Result<String> edit(@RequestBody Record record) {
+        // NOTE: 数据库 images 字段为 JSON 类型，空字符串不是有效的 JSON，需要转为空数组
+        if (record.getImages() == null || record.getImages().isEmpty()) {
+            record.setImages("[]");
+        }
         recordService.updateById(record);
         return Result.success();
     }
